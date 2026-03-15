@@ -167,7 +167,147 @@ main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 }
 .materi-detail h3 {
   font-family: 'Playfair Display', serif;
-  font-size: 20px; margin-bottom: 1rem;
+  font-size: 20px; margin-bottom: .75rem;
+}
+.materi-intro {
+  font-size: 14px; color: var(--muted); line-height: 1.7;
+  margin-bottom: 1rem; padding: .75rem 1rem;
+  background: var(--cream); border-radius: var(--radius);
+  border-left: 3px solid var(--gold);
+}
+
+/* Context box */
+.context-box { background: var(--cream); border-radius: var(--radius); padding: 1rem; margin-bottom: 1rem; }
+.context-label { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: .75rem; }
+.context-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 8px; }
+.context-item { display: flex; align-items: flex-start; gap: 10px; background: var(--white); border-radius: 8px; padding: .625rem .75rem; border: 1px solid var(--border); font-size: 13px; line-height: 1.5; }
+.context-icon { font-size: 20px; flex-shrink: 0; }
+
+/* Formula tabs */
+.formula-tabs { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 10px; margin-bottom: 1rem; }
+.formula-tab-item { border-radius: var(--radius); padding: .875rem 1rem; border: 1px solid var(--border); }
+.formula-tab-item.green { background: #f0f7f0; border-color: #b8d8b8; }
+.formula-tab-item.red { background: var(--coral-light); border-color: #e8c0b8; }
+.formula-tab-item.blue { background: var(--teal-light); border-color: #b0d4d4; }
+.formula-tab-title { font-size: 12px; font-weight: 600; margin-bottom: .5rem; color: var(--ink); }
+.formula-line { font-size: 13px; margin-bottom: .375rem; color: var(--muted); }
+.subj-pill { display: inline-block; background: var(--teal-light); color: var(--teal); border-radius: 4px; padding: 0 6px; font-size: 12px; font-weight: 600; }
+.verb-pill { display: inline-block; background: #e8f4e8; color: var(--sage); border-radius: 4px; padding: 0 6px; font-size: 12px; font-weight: 600; }
+.neg-pill { display: inline-block; background: var(--coral-light); color: var(--coral); border-radius: 4px; padding: 0 6px; font-size: 12px; font-weight: 600; }
+.qw-pill { display: inline-block; background: var(--gold-light); color: var(--gold); border-radius: 4px; padding: 0 6px; font-size: 12px; font-weight: 600; }
+
+/* Tip box */
+.tip-box { background: var(--gold-light); border: 1px solid #e8c878; border-radius: var(--radius); padding: 1rem; margin-bottom: 1rem; }
+.tip-title { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: .625rem; }
+.tip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 8px; font-size: 13px; line-height: 1.6; }
+.tip-grid > div { background: rgba(255,255,255,.5); border-radius: 6px; padding: .5rem .625rem; }
+
+/* Dialog box */
+.dialog-box { background: var(--cream); border-radius: var(--radius); padding: 1rem; border: 1px solid var(--border); margin-top: 1rem; }
+.dialog-title { font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: .75rem; text-transform: uppercase; letter-spacing: 1px; }
+.dialog-line { display: flex; gap: 8px; margin-bottom: .5rem; font-size: 14px; line-height: 1.6; }
+.dialog-speaker { font-weight: 600; color: var(--teal); white-space: nowrap; min-width: 44px; }
+.dialog-text { color: var(--ink); }
+
+/* Compare box */
+.compare-box { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 1rem; }
+.compare-title { font-size: 13px; font-weight: 600; padding: .625rem 1rem; background: var(--cream); border-bottom: 1px solid var(--border); }
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.compare-col { padding: .75rem 1rem; }
+.compare-col:first-child { border-right: 1px solid var(--border); }
+.compare-header { font-size: 12px; font-weight: 600; padding: 4px 8px; border-radius: 4px; margin-bottom: .5rem; display: inline-block; }
+.teal-bg { background: var(--teal-light); color: var(--teal); }
+.coral-bg { background: var(--coral-light); color: var(--coral); }
+.compare-row { font-size: 13px; line-height: 1.7; }
+.compare-note { color: var(--muted); font-style: italic; }
+
+/* Irregular verbs table */
+.irr-table { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; font-size: 13px; }
+.irr-header { display: grid; grid-template-columns: 1fr 1fr 1fr; background: var(--ink); color: var(--cream); padding: .5rem 1rem; font-weight: 600; font-size: 12px; }
+.irr-row { display: grid; grid-template-columns: 1fr 1fr 1fr; padding: .4rem 1rem; border-bottom: 1px solid var(--border); }
+.irr-row:nth-child(even) { background: var(--cream); }
+.irr-row:last-child { border-bottom: none; }
+.irr-row span:first-child { color: var(--coral); font-weight: 500; }
+.irr-row span:nth-child(2) { color: var(--teal); font-weight: 600; }
+
+/* Question words table */
+.qw-table { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; font-size: 13px; }
+.qw-header { display: grid; grid-template-columns: 100px 100px 1fr; background: var(--ink); color: var(--cream); padding: .5rem 1rem; font-weight: 600; font-size: 12px; }
+.qw-row { display: grid; grid-template-columns: 100px 100px 1fr; padding: .4rem 1rem; border-bottom: 1px solid var(--border); align-items: center; line-height: 1.5; }
+.qw-row:nth-child(even) { background: var(--cream); }
+.qw-row:last-child { border-bottom: none; }
+.qw-word { font-weight: 700; color: var(--teal); }
+
+/* Prepositions guide */
+.prep-guide { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: .75rem; }
+.prep-col { background: var(--white); border-radius: 8px; padding: .75rem; border: 1px solid var(--border); }
+.prep-col-title { font-size: 16px; font-weight: 700; margin-bottom: .5rem; }
+.prep-sub { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; margin: .5rem 0 .2rem; }
+.prep-example { font-size: 12px; color: var(--ink); line-height: 1.6; margin-bottom: 2px; }
+
+/* Adjective categories */
+.adj-category { margin-bottom: 1rem; }
+.adj-cat-title { font-size: 13px; font-weight: 600; margin-bottom: .5rem; color: var(--ink); }
+.vocab-section-title { font-size: 13px; font-weight: 600; margin-bottom: .5rem; color: var(--ink); }
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 640px) {
+  nav { padding: 0 1rem; gap: .75rem; height: 54px; }
+  .nav-logo { font-size: 17px; }
+  .nav-tab { font-size: 12px; padding: 5px 10px; }
+  main { padding: 1rem .75rem 3rem; }
+  .hero { padding: 1.75rem .5rem 1.5rem; }
+  .hero h1 { font-size: clamp(28px, 8vw, 40px); }
+  .hero p { font-size: 14px; }
+  .hero-stages { flex-direction: column; align-items: stretch; }
+  .stage-pill { text-align: center; }
+  .materi-grid { grid-template-columns: 1fr; }
+  .sec-header h2 { font-size: 19px; }
+  .inner-tabs { gap: 4px; }
+  .inner-tab { font-size: 11px; padding: 4px 10px; }
+  .materi-detail { padding: 1rem; }
+  .materi-detail h3 { font-size: 17px; }
+  .formula-tabs { grid-template-columns: 1fr; }
+  .compare-grid { grid-template-columns: 1fr; }
+  .compare-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+  .context-grid { grid-template-columns: 1fr 1fr; }
+  .tip-grid { grid-template-columns: 1fr; }
+  .prep-guide { grid-template-columns: 1fr; }
+  .qw-header { grid-template-columns: 90px 80px 1fr; font-size: 11px; padding: .5rem .75rem; }
+  .qw-row { grid-template-columns: 90px 80px 1fr; padding: .4rem .75rem; font-size: 12px; }
+  .irr-header, .irr-row { padding: .4rem .75rem; }
+  .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(110px,1fr)); }
+  .score-row { gap: 6px; }
+  .score-card { padding: .625rem .75rem; }
+  .score-num { font-size: 20px; }
+  .q-opts { grid-template-columns: 1fr; }
+  .q-text { font-size: 16px; }
+  .q-card { padding: 1rem; }
+  .bank-slot { padding: .75rem; }
+  .bank-slot-top { flex-wrap: wrap; gap: 8px; }
+  .file-tags-row { gap: 5px; }
+  .file-tag-name { max-width: 100px; }
+  .result-score { font-size: 48px; }
+  .s2-active-topic-label { font-size: 14px; }
+  #file-picker-overlay > div { padding: 1.25rem; }
+  .topic-btn { padding: 10px 12px; font-size: 12px; }
+  .btn-primary, .btn-secondary { padding: 8px 16px; font-size: 13px; }
+  .grammar-box { padding: .75rem; }
+  .grammar-box h4 { font-size: 13px; }
+  .example-line { font-size: 12px; }
+  .dialog-line { font-size: 13px; }
+  .dialog-speaker { min-width: 40px; }
+  .tobe-inp { width: 75px; font-size: 13px; }
+  .back-btn { font-size: 12px; margin-bottom: 1rem; }
+  .materi-card { padding: 1rem; }
+}
+
+@media (max-width: 400px) {
+  .nav-tab:not(.active) { display: none; }
+  .context-grid { grid-template-columns: 1fr; }
+  .qw-header { grid-template-columns: 75px 70px 1fr; }
+  .qw-row { grid-template-columns: 75px 70px 1fr; }
+  .inner-tab { font-size: 10px; padding: 4px 8px; }
 }
 .vocab-grid {
   display: grid;
@@ -303,7 +443,7 @@ main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
   border: 1.5px solid var(--border);
   border-radius: var(--radius);
   padding: .875rem 1rem;
-  transition: all .2s;
+  transition: border-color .2s, background .2s;
 }
 .bank-slot.loaded { border-color: var(--sage); background: var(--sage-light); }
 .bank-slot-top { display:flex; align-items:center; gap:10px; }
@@ -320,14 +460,23 @@ main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
   display:inline-block;
 }
 .import-btn:hover { border-color:var(--gold); background:var(--gold-light); color:var(--ink); }
-.bank-slot.loaded .import-btn { border-color:var(--sage); color:var(--sage); }
-.bank-slot.loaded .import-btn:hover { background:var(--sage-light); }
-.remove-btn {
-  font-size:16px; padding:2px 6px; line-height:1;
-  border-radius:6px; border:1px solid var(--border);
-  background:transparent; color:var(--muted); cursor:pointer; transition:all .15s;
+.bank-slot.loaded .import-btn { border-color:var(--teal); color:var(--teal); background:var(--white); }
+.bank-slot.loaded .import-btn:hover { background:var(--teal-light); }
+.file-tags-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:.625rem; padding-top:.625rem; border-top:1px solid var(--border); }
+.file-tag {
+  display:inline-flex; align-items:center; gap:5px;
+  background:var(--white); border:1px solid var(--border);
+  border-radius:20px; padding:3px 8px 3px 10px; font-size:12px;
 }
-.remove-btn:hover { border-color:var(--coral); color:var(--coral); background:var(--coral-light); }
+.bank-slot.loaded .file-tag { border-color:#b0d4d4; }
+.file-tag-name { font-weight:500; color:var(--ink); max-width:160px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.file-tag-count { color:var(--muted); }
+.file-tag-remove {
+  font-size:11px; line-height:1; padding:1px 4px;
+  border-radius:50%; border:none; background:transparent;
+  color:var(--muted); cursor:pointer; transition:all .1s;
+}
+.file-tag-remove:hover { background:var(--coral-light); color:var(--coral); }
 .topic-btn-disabled { opacity:.4; pointer-events:none; }
 
 .topic-btn {
@@ -766,166 +915,432 @@ main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
   <!-- S2 MATERI -->
   <div id="s2-materi" class="inner-section active">
 
-    <!-- Present Tense -->
+    <!-- ===== 1. SIMPLE PRESENT ===== -->
     <div class="materi-detail">
       <h3>⏰ 1. Simple Present Tense</h3>
-      <p style="font-size:14px;color:var(--muted);margin-bottom:1rem">Digunakan untuk kebiasaan, fakta, dan rutinitas sehari-hari.</p>
-      <div class="grammar-box">
-        <h4>Rumus kalimat positif</h4>
-        <span class="example-line">I/You/We/They + <em>V1</em> | I <em>eat</em> rice every day.</span>
-        <span class="example-line">He/She/It + <em>V1+s/es</em> | She <em>drinks</em> coffee.</span>
+      <div class="materi-intro">Digunakan untuk <strong>kebiasaan</strong>, <strong>fakta umum</strong>, dan <strong>rutinitas sehari-hari</strong>. Bayangkan kamu sedang cerita ke teman tentang apa yang kamu lakukan tiap hari — itulah Simple Present.</div>
+
+      <div class="context-box">
+        <div class="context-label">🎯 Kapan dipakai?</div>
+        <div class="context-grid">
+          <div class="context-item">
+            <div class="context-icon">🔁</div>
+            <div><strong>Kebiasaan rutin</strong><br><span>I wake up at 6 AM every day.</span></div>
+          </div>
+          <div class="context-item">
+            <div class="context-icon">🌍</div>
+            <div><strong>Fakta umum</strong><br><span>The earth moves around the sun.</span></div>
+          </div>
+          <div class="context-item">
+            <div class="context-icon">❤️</div>
+            <div><strong>Kesukaan/pendapat</strong><br><span>I love spicy food.</span></div>
+          </div>
+          <div class="context-item">
+            <div class="context-icon">📅</div>
+            <div><strong>Jadwal tetap</strong><br><span>The bus leaves at 7 AM.</span></div>
+          </div>
+        </div>
       </div>
-      <div class="grammar-box coral" style="margin-top:.75rem">
-        <h4>Rumus negatif</h4>
-        <span class="example-line">I/You/We/They + <em>don't</em> + V1 | I <em>don't</em> like fish.</span>
-        <span class="example-line">He/She/It + <em>doesn't</em> + V1 | He <em>doesn't</em> play football.</span>
+
+      <div class="formula-tabs">
+        <div class="formula-tab-item green">
+          <div class="formula-tab-title">✅ Positif</div>
+          <div class="formula-line"><span class="subj-pill">I / You / We / They</span> + <span class="verb-pill">V1</span></div>
+          <div class="formula-line"><span class="subj-pill">He / She / It</span> + <span class="verb-pill">V1 + s/es</span></div>
+          <span class="example-line">I <em>study</em> English every night.</span>
+          <span class="example-line">She <em>works</em> at a hospital.</span>
+        </div>
+        <div class="formula-tab-item red">
+          <div class="formula-tab-title">❌ Negatif</div>
+          <div class="formula-line"><span class="subj-pill">I / You / We / They</span> + <span class="neg-pill">don't</span> + V1</div>
+          <div class="formula-line"><span class="subj-pill">He / She / It</span> + <span class="neg-pill">doesn't</span> + V1</div>
+          <span class="example-line">I <em>don't</em> eat meat.</span>
+          <span class="example-line">He <em>doesn't</em> like coffee.</span>
+        </div>
+        <div class="formula-tab-item blue">
+          <div class="formula-tab-title">❓ Tanya</div>
+          <div class="formula-line"><span class="qw-pill">Do</span> + I/you/we/they + V1?</div>
+          <div class="formula-line"><span class="qw-pill">Does</span> + he/she/it + V1?</div>
+          <span class="example-line"><em>Do</em> you like music? — Yes, I do.</span>
+          <span class="example-line"><em>Does</em> she drive? — No, she doesn't.</span>
+        </div>
       </div>
-      <div class="grammar-box" style="margin-top:.75rem">
-        <h4>Rumus kalimat tanya</h4>
-        <span class="example-line"><em>Do</em> you like music? — Yes, I do. / No, I don't.</span>
-        <span class="example-line"><em>Does</em> she work here? — Yes, she does. / No, she doesn't.</span>
+
+      <div class="tip-box">
+        <div class="tip-title">💡 Tips: Kapan tambah -s atau -es?</div>
+        <div class="tip-grid">
+          <div><strong>Biasa → tambah -s</strong><br>eat → eat<em>s</em>, work → work<em>s</em></div>
+          <div><strong>Akhiran -s, -sh, -ch, -x, -o → tambah -es</strong><br>wash → wash<em>es</em>, go → go<em>es</em></div>
+          <div><strong>Akhiran konsonan + y → -ies</strong><br>study → stud<em>ies</em>, try → tr<em>ies</em></div>
+          <div><strong>Akhiran vokal + y → -s biasa</strong><br>play → play<em>s</em>, say → say<em>s</em></div>
+        </div>
       </div>
-      <div style="margin-top:.75rem">
-        <p style="font-size:13px;font-weight:600;margin-bottom:.5rem">Kata kerja dasar (V1)</p>
+
+      <div class="dialog-box">
+        <div class="dialog-title">💬 Dialog — Cerita rutinitas pagi</div>
+        <div class="dialog-line"><span class="dialog-speaker">Rina:</span> <span class="dialog-text">What time do you usually wake up?</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Budi:</span> <span class="dialog-text">I wake up at 5 AM. Then I exercise for 30 minutes.</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Rina:</span> <span class="dialog-text">Wow! Does your sister wake up early too?</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Budi:</span> <span class="dialog-text">No, she doesn't. She wakes up at 7 AM.</span></div>
+      </div>
+
+      <div style="margin-top:1rem">
+        <p class="vocab-section-title">Kata kerja sehari-hari yang sering dipakai</p>
         <div class="vocab-grid">
-          <div class="vocab-item"><div class="vocab-en">Eat</div><div class="vocab-id">Makan</div></div>
-          <div class="vocab-item"><div class="vocab-en">Drink</div><div class="vocab-id">Minum</div></div>
-          <div class="vocab-item"><div class="vocab-en">Sleep</div><div class="vocab-id">Tidur</div></div>
-          <div class="vocab-item"><div class="vocab-en">Work</div><div class="vocab-id">Bekerja</div></div>
-          <div class="vocab-item"><div class="vocab-en">Study</div><div class="vocab-id">Belajar</div></div>
-          <div class="vocab-item"><div class="vocab-en">Play</div><div class="vocab-id">Bermain</div></div>
-          <div class="vocab-item"><div class="vocab-en">Go</div><div class="vocab-id">Pergi</div></div>
-          <div class="vocab-item"><div class="vocab-en">Come</div><div class="vocab-id">Datang</div></div>
-          <div class="vocab-item"><div class="vocab-en">Like</div><div class="vocab-id">Suka</div></div>
-          <div class="vocab-item"><div class="vocab-en">Want</div><div class="vocab-id">Mau/Ingin</div></div>
-          <div class="vocab-item"><div class="vocab-en">Know</div><div class="vocab-id">Tahu</div></div>
-          <div class="vocab-item"><div class="vocab-en">See</div><div class="vocab-id">Melihat</div></div>
+          <div class="vocab-item"><div class="vocab-en">wake up</div><div class="vocab-id">bangun tidur</div></div>
+          <div class="vocab-item"><div class="vocab-en">eat / drink</div><div class="vocab-id">makan / minum</div></div>
+          <div class="vocab-item"><div class="vocab-en">go to school</div><div class="vocab-id">pergi ke sekolah</div></div>
+          <div class="vocab-item"><div class="vocab-en">study / work</div><div class="vocab-id">belajar / bekerja</div></div>
+          <div class="vocab-item"><div class="vocab-en">watch TV</div><div class="vocab-id">nonton TV</div></div>
+          <div class="vocab-item"><div class="vocab-en">play games</div><div class="vocab-id">main games</div></div>
+          <div class="vocab-item"><div class="vocab-en">sleep / rest</div><div class="vocab-id">tidur / istirahat</div></div>
+          <div class="vocab-item"><div class="vocab-en">cook / clean</div><div class="vocab-id">masak / bersih-bersih</div></div>
         </div>
       </div>
     </div>
 
-    <!-- Present Continuous -->
+    <!-- ===== 2. PRESENT CONTINUOUS ===== -->
     <div class="materi-detail">
       <h3>🔄 2. Present Continuous Tense</h3>
-      <p style="font-size:14px;color:var(--muted);margin-bottom:1rem">Digunakan untuk aktivitas yang sedang terjadi saat ini.</p>
-      <div class="grammar-box">
-        <h4>Rumus: Subject + am/is/are + V-ing</h4>
-        <span class="example-line">I <em>am eating</em> now. (Saya sedang makan sekarang)</span>
-        <span class="example-line">She <em>is studying</em> English. (Dia sedang belajar Inggris)</span>
-        <span class="example-line">They <em>are playing</em> football. (Mereka sedang bermain bola)</span>
-      </div>
-      <div class="grammar-box coral" style="margin-top:.75rem">
-        <h4>Cara menambahkan -ing</h4>
-        <ul>
-          <li>Biasa: eat → eat<em>ing</em>, sleep → sleep<em>ing</em></li>
-          <li>Akhiran e: write → writ<em>ing</em>, make → mak<em>ing</em></li>
-          <li>Konsonan ganda: sit → sit<em>ting</em>, run → run<em>ning</em></li>
-        </ul>
-      </div>
-    </div>
+      <div class="materi-intro">Digunakan untuk aktivitas yang <strong>sedang terjadi sekarang</strong> atau <strong>sementara waktu ini</strong>. Bayangkan kamu sedang video call dan menjelaskan apa yang sedang kamu lakukan.</div>
 
-    <!-- Past Tense -->
-    <div class="materi-detail">
-      <h3>⏪ 3. Simple Past Tense</h3>
-      <p style="font-size:14px;color:var(--muted);margin-bottom:1rem">Digunakan untuk kejadian yang sudah terjadi di masa lalu.</p>
-      <div class="grammar-box">
-        <h4>Regular Verbs — tambahkan -ed</h4>
-        <span class="example-line">play → <em>played</em> | I played football yesterday.</span>
-        <span class="example-line">walk → <em>walked</em> | She walked to school.</span>
-        <span class="example-line">study → <em>studied</em> | He studied last night.</span>
-      </div>
-      <div class="grammar-box coral" style="margin-top:.75rem">
-        <h4>Irregular Verbs — bentuk berubah</h4>
-        <div class="vocab-grid" style="margin-top:.5rem">
-          <div class="vocab-item"><div class="vocab-en">go → went</div><div class="vocab-id">pergi</div></div>
-          <div class="vocab-item"><div class="vocab-en">eat → ate</div><div class="vocab-id">makan</div></div>
-          <div class="vocab-item"><div class="vocab-en">see → saw</div><div class="vocab-id">melihat</div></div>
-          <div class="vocab-item"><div class="vocab-en">come → came</div><div class="vocab-id">datang</div></div>
-          <div class="vocab-item"><div class="vocab-en">buy → bought</div><div class="vocab-id">membeli</div></div>
-          <div class="vocab-item"><div class="vocab-en">have → had</div><div class="vocab-id">punya</div></div>
-          <div class="vocab-item"><div class="vocab-en">make → made</div><div class="vocab-id">membuat</div></div>
-          <div class="vocab-item"><div class="vocab-en">write → wrote</div><div class="vocab-id">menulis</div></div>
+      <div class="context-box">
+        <div class="context-label">🎯 Kapan dipakai?</div>
+        <div class="context-grid">
+          <div class="context-item">
+            <div class="context-icon">▶️</div>
+            <div><strong>Sedang berlangsung</strong><br><span>I am eating right now.</span></div>
+          </div>
+          <div class="context-item">
+            <div class="context-icon">⏳</div>
+            <div><strong>Sementara waktu ini</strong><br><span>She is living with her aunt this month.</span></div>
+          </div>
+          <div class="context-item">
+            <div class="context-icon">📱</div>
+            <div><strong>Ngomongin di WA/chat</strong><br><span>"Lagi ngapain?" → What are you doing?</span></div>
+          </div>
+          <div class="context-item">
+            <div class="context-icon">🚫</div>
+            <div><strong>Perilaku yang menjengkelkan</strong><br><span>He is always interrupting me!</span></div>
+          </div>
         </div>
       </div>
-      <div class="grammar-box" style="margin-top:.75rem">
-        <h4>Kalimat negatif & tanya</h4>
-        <span class="example-line">I <em>didn't</em> go to school yesterday.</span>
-        <span class="example-line"><em>Did</em> you eat breakfast? — Yes, I did.</span>
+
+      <div class="formula-tabs">
+        <div class="formula-tab-item green">
+          <div class="formula-tab-title">✅ Positif</div>
+          <div class="formula-line"><span class="subj-pill">I</span> + <span class="verb-pill">am</span> + V-ing</div>
+          <div class="formula-line"><span class="subj-pill">He / She / It</span> + <span class="verb-pill">is</span> + V-ing</div>
+          <div class="formula-line"><span class="subj-pill">You / We / They</span> + <span class="verb-pill">are</span> + V-ing</div>
+          <span class="example-line">I <em>am watching</em> a movie.</span>
+          <span class="example-line">She <em>is cooking</em> in the kitchen.</span>
+          <span class="example-line">They <em>are playing</em> outside.</span>
+        </div>
+        <div class="formula-tab-item red">
+          <div class="formula-tab-title">❌ Negatif</div>
+          <span class="example-line">I <em>am not</em> sleeping now.</span>
+          <span class="example-line">He <em>isn't</em> working today.</span>
+          <span class="example-line">We <em>aren't</em> going anywhere.</span>
+        </div>
+        <div class="formula-tab-item blue">
+          <div class="formula-tab-title">❓ Tanya</div>
+          <span class="example-line"><em>Are</em> you eating? — Yes, I am.</span>
+          <span class="example-line"><em>Is</em> she sleeping? — No, she isn't.</span>
+          <span class="example-line">What <em>are</em> you doing? — I'm studying.</span>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-title">💡 Cara membuat V-ing yang benar</div>
+        <div class="tip-grid">
+          <div><strong>Biasa → + ing</strong><br>eat → eat<em>ing</em>, sleep → sleep<em>ing</em></div>
+          <div><strong>Akhiran -e → hilangkan e, + ing</strong><br>write → writ<em>ing</em>, come → com<em>ing</em></div>
+          <div><strong>KVK pendek → dobel konsonan + ing</strong><br>run → run<em>ning</em>, sit → sit<em>ting</em></div>
+          <div><strong>Akhiran -ie → ganti jadi -ying</strong><br>lie → l<em>ying</em>, die → d<em>ying</em></div>
+        </div>
+      </div>
+
+      <div class="compare-box">
+        <div class="compare-title">🔍 Bedanya Simple Present vs Present Continuous</div>
+        <div class="compare-grid">
+          <div class="compare-col">
+            <div class="compare-header teal-bg">Simple Present</div>
+            <div class="compare-row">I <em>eat</em> rice every day. <span class="compare-note">(kebiasaan)</span></div>
+            <div class="compare-row">She <em>works</em> at a bank. <span class="compare-note">(pekerjaan tetap)</span></div>
+            <div class="compare-row">He <em>plays</em> football on Sundays. <span class="compare-note">(rutin)</span></div>
+          </div>
+          <div class="compare-col">
+            <div class="compare-header coral-bg">Present Continuous</div>
+            <div class="compare-row">I <em>am eating</em> right now. <span class="compare-note">(sedang makan)</span></div>
+            <div class="compare-row">She <em>is working</em> late tonight. <span class="compare-note">(sedang kerja)</span></div>
+            <div class="compare-row">He <em>is playing</em> football now. <span class="compare-note">(sedang main)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dialog-box">
+        <div class="dialog-title">💬 Dialog — Pesan WhatsApp</div>
+        <div class="dialog-line"><span class="dialog-speaker">Ani:</span> <span class="dialog-text">Hey, where are you? What are you doing?</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Doni:</span> <span class="dialog-text">I'm sitting at a café. I'm waiting for my friend.</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Ani:</span> <span class="dialog-text">Is it raining there? It's raining here.</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Doni:</span> <span class="dialog-text">No, it's sunny here. The sun is shining brightly!</span></div>
       </div>
     </div>
 
-    <!-- Question Words -->
+    <!-- ===== 3. SIMPLE PAST ===== -->
+    <div class="materi-detail">
+      <h3>⏪ 3. Simple Past Tense</h3>
+      <div class="materi-intro">Digunakan untuk kejadian yang <strong>sudah selesai di masa lalu</strong>. Ada kata petunjuk waktu yang sering muncul: <em>yesterday, last week, last night, ago, in 2020</em>, dll.</div>
+
+      <div class="formula-tabs">
+        <div class="formula-tab-item green">
+          <div class="formula-tab-title">✅ Positif</div>
+          <div class="formula-line">Subject + <span class="verb-pill">V2</span> (bentuk lampau)</div>
+          <span class="example-line">I <em>watched</em> a movie last night.</span>
+          <span class="example-line">She <em>went</em> to Bali last week.</span>
+          <span class="example-line">They <em>ate</em> nasi goreng for breakfast.</span>
+        </div>
+        <div class="formula-tab-item red">
+          <div class="formula-tab-title">❌ Negatif</div>
+          <div class="formula-line">Subject + <span class="neg-pill">didn't</span> + V1</div>
+          <span class="example-line">I <em>didn't</em> go to school yesterday.</span>
+          <span class="example-line">He <em>didn't</em> call me last night.</span>
+        </div>
+        <div class="formula-tab-item blue">
+          <div class="formula-tab-title">❓ Tanya</div>
+          <div class="formula-line"><span class="qw-pill">Did</span> + subject + V1?</div>
+          <span class="example-line"><em>Did</em> you eat breakfast? — Yes, I did.</span>
+          <span class="example-line"><em>Did</em> she call? — No, she didn't.</span>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-title">💡 Regular vs Irregular Verbs</div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:.75rem">Regular verbs cukup tambah <strong>-ed</strong>. Irregular verbs bentuknya berubah total — harus dihafal!</p>
+        <div class="irr-table">
+          <div class="irr-header"><span>V1 (sekarang)</span><span>V2 (lampau)</span><span>Arti</span></div>
+          <div class="irr-row"><span>go</span><span>went</span><span>pergi</span></div>
+          <div class="irr-row"><span>eat</span><span>ate</span><span>makan</span></div>
+          <div class="irr-row"><span>see</span><span>saw</span><span>melihat</span></div>
+          <div class="irr-row"><span>come</span><span>came</span><span>datang</span></div>
+          <div class="irr-row"><span>buy</span><span>bought</span><span>membeli</span></div>
+          <div class="irr-row"><span>make</span><span>made</span><span>membuat</span></div>
+          <div class="irr-row"><span>have</span><span>had</span><span>punya/memiliki</span></div>
+          <div class="irr-row"><span>write</span><span>wrote</span><span>menulis</span></div>
+          <div class="irr-row"><span>take</span><span>took</span><span>mengambil</span></div>
+          <div class="irr-row"><span>give</span><span>gave</span><span>memberi</span></div>
+          <div class="irr-row"><span>speak</span><span>spoke</span><span>berbicara</span></div>
+          <div class="irr-row"><span>meet</span><span>met</span><span>bertemu</span></div>
+          <div class="irr-row"><span>find</span><span>found</span><span>menemukan</span></div>
+          <div class="irr-row"><span>think</span><span>thought</span><span>berpikir</span></div>
+          <div class="irr-row"><span>know</span><span>knew</span><span>tahu</span></div>
+          <div class="irr-row"><span>wake</span><span>woke</span><span>bangun</span></div>
+        </div>
+      </div>
+
+      <div class="dialog-box">
+        <div class="dialog-title">💬 Dialog — Cerita liburan kemarin</div>
+        <div class="dialog-line"><span class="dialog-speaker">Sari:</span> <span class="dialog-text">Where did you go last holiday?</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Reza:</span> <span class="dialog-text">I went to Lombok with my family. We stayed there for 3 days.</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Sari:</span> <span class="dialog-text">What did you do there?</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Reza:</span> <span class="dialog-text">We went to the beach, ate fresh seafood, and took a lot of photos. It was amazing!</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Sari:</span> <span class="dialog-text">Did it rain?</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Reza:</span> <span class="dialog-text">No, it didn't rain at all. The weather was perfect.</span></div>
+      </div>
+    </div>
+
+    <!-- ===== 4. QUESTION WORDS ===== -->
     <div class="materi-detail">
       <h3>❓ 4. Question Words (Kata Tanya)</h3>
-      <div class="vocab-grid">
-        <div class="vocab-item"><div class="vocab-en">What?</div><div class="vocab-id">Apa?</div></div>
-        <div class="vocab-item"><div class="vocab-en">Where?</div><div class="vocab-id">Di mana?</div></div>
-        <div class="vocab-item"><div class="vocab-en">When?</div><div class="vocab-id">Kapan?</div></div>
-        <div class="vocab-item"><div class="vocab-en">Who?</div><div class="vocab-id">Siapa?</div></div>
-        <div class="vocab-item"><div class="vocab-en">Why?</div><div class="vocab-id">Mengapa?</div></div>
-        <div class="vocab-item"><div class="vocab-en">How?</div><div class="vocab-id">Bagaimana?</div></div>
-        <div class="vocab-item"><div class="vocab-en">How many?</div><div class="vocab-id">Berapa banyak?</div></div>
-        <div class="vocab-item"><div class="vocab-en">How much?</div><div class="vocab-id">Berapa harga?</div></div>
-        <div class="vocab-item"><div class="vocab-en">Which?</div><div class="vocab-id">Yang mana?</div></div>
-        <div class="vocab-item"><div class="vocab-en">Whose?</div><div class="vocab-id">Milik siapa?</div></div>
+      <div class="materi-intro">Kata tanya dipakai di awal kalimat untuk menggali informasi. Setiap kata tanya punya <strong>fungsi berbeda</strong> — jangan tertukar!</div>
+
+      <div class="qw-table">
+        <div class="qw-header"><span>Kata Tanya</span><span>Arti</span><span>Contoh</span></div>
+        <div class="qw-row"><span class="qw-word">What</span><span>Apa</span><span>What is your job? — I'm a teacher.</span></div>
+        <div class="qw-row"><span class="qw-word">Where</span><span>Di mana</span><span>Where do you live? — In Palembang.</span></div>
+        <div class="qw-row"><span class="qw-word">When</span><span>Kapan</span><span>When is your birthday? — July 10th.</span></div>
+        <div class="qw-row"><span class="qw-word">Who</span><span>Siapa</span><span>Who is that? — That's my teacher.</span></div>
+        <div class="qw-row"><span class="qw-word">Why</span><span>Kenapa</span><span>Why are you sad? — Because I'm tired.</span></div>
+        <div class="qw-row"><span class="qw-word">How</span><span>Bagaimana</span><span>How are you? — I'm fine, thanks.</span></div>
+        <div class="qw-row"><span class="qw-word">How many</span><span>Berapa banyak</span><span>How many siblings do you have? — Two.</span></div>
+        <div class="qw-row"><span class="qw-word">How much</span><span>Berapa harga</span><span>How much is this? — Rp 50.000.</span></div>
+        <div class="qw-row"><span class="qw-word">Which</span><span>Yang mana</span><span>Which do you prefer, tea or coffee?</span></div>
+        <div class="qw-row"><span class="qw-word">Whose</span><span>Milik siapa</span><span>Whose bag is this? — It's mine.</span></div>
+        <div class="qw-row"><span class="qw-word">How old</span><span>Berapa umur</span><span>How old are you? — I'm 17.</span></div>
+        <div class="qw-row"><span class="qw-word">How far</span><span>Berapa jauh</span><span>How far is your school? — 2 km.</span></div>
+        <div class="qw-row"><span class="qw-word">How often</span><span>Seberapa sering</span><span>How often do you exercise? — Twice a week.</span></div>
+        <div class="qw-row"><span class="qw-word">What time</span><span>Jam berapa</span><span>What time does school start? — At 7.</span></div>
       </div>
-      <div class="grammar-box" style="margin-top:1rem">
-        <h4>Contoh penggunaan</h4>
-        <span class="example-line"><em>What</em> is your name? — My name is Budi.</span>
-        <span class="example-line"><em>Where</em> do you live? — I live in Palembang.</span>
-        <span class="example-line"><em>When</em> does school start? — At 7 o'clock.</span>
-        <span class="example-line"><em>Why</em> are you late? — Because I missed the bus.</span>
+
+      <div class="tip-box" style="margin-top:1rem">
+        <div class="tip-title">💡 How many vs How much?</div>
+        <div class="compare-grid" style="margin-top:.5rem">
+          <div style="background:var(--teal-light);border-radius:8px;padding:.75rem">
+            <strong style="color:var(--teal)">How many</strong> → benda yang bisa dihitung<br>
+            <span style="font-size:13px">How many <em>books</em>? / How many <em>friends</em>?</span>
+          </div>
+          <div style="background:var(--coral-light);border-radius:8px;padding:.75rem">
+            <strong style="color:var(--coral)">How much</strong> → harga atau benda tak terhitung<br>
+            <span style="font-size:13px">How much <em>money</em>? / How much <em>water</em>?</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dialog-box">
+        <div class="dialog-title">💬 Dialog — Kenalan pertama kali</div>
+        <div class="dialog-line"><span class="dialog-speaker">Maya:</span> <span class="dialog-text">Hi! What's your name?</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Andi:</span> <span class="dialog-text">I'm Andi. And you?</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Maya:</span> <span class="dialog-text">I'm Maya. Where are you from?</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Andi:</span> <span class="dialog-text">I'm from Palembang. How about you?</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Maya:</span> <span class="dialog-text">Me too! How old are you?</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Andi:</span> <span class="dialog-text">I'm 18. Why do you ask?</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Maya:</span> <span class="dialog-text">Because we might go to the same school!</span></div>
       </div>
     </div>
 
-    <!-- Prepositions -->
+    <!-- ===== 5. PREPOSITIONS ===== -->
     <div class="materi-detail">
       <h3>📍 5. Prepositions (Kata Depan)</h3>
-      <div class="vocab-grid">
-        <div class="vocab-item"><div class="vocab-en">in</div><div class="vocab-id">di dalam</div></div>
-        <div class="vocab-item"><div class="vocab-en">on</div><div class="vocab-id">di atas</div></div>
-        <div class="vocab-item"><div class="vocab-en">at</div><div class="vocab-id">di (tempat spesifik)</div></div>
-        <div class="vocab-item"><div class="vocab-en">under</div><div class="vocab-id">di bawah</div></div>
-        <div class="vocab-item"><div class="vocab-en">behind</div><div class="vocab-id">di belakang</div></div>
-        <div class="vocab-item"><div class="vocab-en">in front of</div><div class="vocab-id">di depan</div></div>
-        <div class="vocab-item"><div class="vocab-en">next to</div><div class="vocab-id">di samping</div></div>
-        <div class="vocab-item"><div class="vocab-en">between</div><div class="vocab-id">di antara</div></div>
-        <div class="vocab-item"><div class="vocab-en">near</div><div class="vocab-id">dekat</div></div>
-        <div class="vocab-item"><div class="vocab-en">far from</div><div class="vocab-id">jauh dari</div></div>
+      <div class="materi-intro">Prepositions menunjukkan <strong>hubungan posisi, waktu, atau arah</strong> antara suatu benda/orang dengan benda/orang lain. Tiga yang paling sering bikin bingung: <em>in, on, at</em>.</div>
+
+      <div class="context-box" style="margin-bottom:1rem">
+        <div class="context-label">📌 in / on / at — Panduan lengkap</div>
+        <div class="prep-guide">
+          <div class="prep-col">
+            <div class="prep-col-title" style="color:var(--teal)">IN</div>
+            <div class="prep-sub">Tempat:</div>
+            <div class="prep-example">in a room, in a city, in Indonesia</div>
+            <div class="prep-example">in the box, in the car, in the sky</div>
+            <div class="prep-sub">Waktu:</div>
+            <div class="prep-example">in the morning/afternoon/evening</div>
+            <div class="prep-example">in January, in 2024, in summer</div>
+          </div>
+          <div class="prep-col">
+            <div class="prep-col-title" style="color:var(--coral)">ON</div>
+            <div class="prep-sub">Tempat:</div>
+            <div class="prep-example">on the table, on the wall, on the floor</div>
+            <div class="prep-example">on the street, on the bus</div>
+            <div class="prep-sub">Waktu:</div>
+            <div class="prep-example">on Monday, on my birthday</div>
+            <div class="prep-example">on 17 August, on weekends</div>
+          </div>
+          <div class="prep-col">
+            <div class="prep-col-title" style="color:var(--gold)">AT</div>
+            <div class="prep-sub">Tempat:</div>
+            <div class="prep-example">at school, at the airport, at home</div>
+            <div class="prep-example">at the door, at the bus stop</div>
+            <div class="prep-sub">Waktu:</div>
+            <div class="prep-example">at 7 o'clock, at noon, at midnight</div>
+            <div class="prep-example">at night, at the weekend (British)</div>
+          </div>
+        </div>
       </div>
-      <div class="grammar-box" style="margin-top:1rem">
-        <h4>Contoh kalimat</h4>
-        <span class="example-line">The cat is <em>on</em> the table.</span>
-        <span class="example-line">I live <em>in</em> Palembang.</span>
-        <span class="example-line">She is standing <em>next to</em> the door.</span>
-        <span class="example-line">Meet me <em>at</em> the coffee shop.</span>
+
+      <div style="margin-bottom:1rem">
+        <p class="vocab-section-title">Preposisi posisi lainnya</p>
+        <div class="vocab-grid">
+          <div class="vocab-item"><div class="vocab-en">under</div><div class="vocab-id">di bawah</div></div>
+          <div class="vocab-item"><div class="vocab-en">above / over</div><div class="vocab-id">di atas</div></div>
+          <div class="vocab-item"><div class="vocab-en">behind</div><div class="vocab-id">di belakang</div></div>
+          <div class="vocab-item"><div class="vocab-en">in front of</div><div class="vocab-id">di depan</div></div>
+          <div class="vocab-item"><div class="vocab-en">next to</div><div class="vocab-id">di samping</div></div>
+          <div class="vocab-item"><div class="vocab-en">between</div><div class="vocab-id">di antara (2 benda)</div></div>
+          <div class="vocab-item"><div class="vocab-en">among</div><div class="vocab-id">di antara (banyak)</div></div>
+          <div class="vocab-item"><div class="vocab-en">near / close to</div><div class="vocab-id">dekat</div></div>
+          <div class="vocab-item"><div class="vocab-en">far from</div><div class="vocab-id">jauh dari</div></div>
+          <div class="vocab-item"><div class="vocab-en">opposite</div><div class="vocab-id">di seberang</div></div>
+          <div class="vocab-item"><div class="vocab-en">inside / outside</div><div class="vocab-id">di dalam / di luar</div></div>
+          <div class="vocab-item"><div class="vocab-en">across from</div><div class="vocab-id">tepat di depan</div></div>
+        </div>
+      </div>
+
+      <div class="dialog-box">
+        <div class="dialog-title">💬 Dialog — Mencari lokasi di mall</div>
+        <div class="dialog-line"><span class="dialog-speaker">Rika:</span> <span class="dialog-text">Excuse me, where is the restroom?</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Guard:</span> <span class="dialog-text">It's on the second floor, next to the elevator.</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Rika:</span> <span class="dialog-text">And the food court? Is it far from here?</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Guard:</span> <span class="dialog-text">No, it's right behind you. It's between the cinema and the bookstore.</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Rika:</span> <span class="dialog-text">Oh! I see it. Thank you so much!</span></div>
       </div>
     </div>
 
-    <!-- Adjectives -->
+    <!-- ===== 6. ADJECTIVES ===== -->
     <div class="materi-detail">
-      <h3>✨ 6. Adjectives & Daily Conversation</h3>
-      <p style="font-size:14px;color:var(--muted);margin-bottom:.75rem">Kata sifat untuk mendeskripsikan orang, tempat, dan benda.</p>
-      <div class="vocab-grid">
-        <div class="vocab-item"><div class="vocab-en">Big / Small</div><div class="vocab-id">Besar / Kecil</div></div>
-        <div class="vocab-item"><div class="vocab-en">Tall / Short</div><div class="vocab-id">Tinggi / Pendek</div></div>
-        <div class="vocab-item"><div class="vocab-en">Fast / Slow</div><div class="vocab-id">Cepat / Lambat</div></div>
-        <div class="vocab-item"><div class="vocab-en">Hot / Cold</div><div class="vocab-id">Panas / Dingin</div></div>
-        <div class="vocab-item"><div class="vocab-en">Happy / Sad</div><div class="vocab-id">Senang / Sedih</div></div>
-        <div class="vocab-item"><div class="vocab-en">Good / Bad</div><div class="vocab-id">Baik / Buruk</div></div>
-        <div class="vocab-item"><div class="vocab-en">New / Old</div><div class="vocab-id">Baru / Lama</div></div>
-        <div class="vocab-item"><div class="vocab-en">Cheap / Expensive</div><div class="vocab-id">Murah / Mahal</div></div>
-        <div class="vocab-item"><div class="vocab-en">Easy / Difficult</div><div class="vocab-id">Mudah / Sulit</div></div>
-        <div class="vocab-item"><div class="vocab-en">Beautiful / Ugly</div><div class="vocab-id">Cantik / Jelek</div></div>
+      <h3>✨ 6. Adjectives (Kata Sifat)</h3>
+      <div class="materi-intro">Adjectives dipakai untuk <strong>mendeskripsikan</strong> orang, benda, atau suasana. Posisinya biasanya <strong>sebelum noun</strong> atau <strong>setelah to be</strong>.</div>
+
+      <div class="formula-tabs">
+        <div class="formula-tab-item green">
+          <div class="formula-tab-title">Sebelum noun (kata benda)</div>
+          <span class="example-line">She has a <em>beautiful</em> smile.</span>
+          <span class="example-line">It was a <em>boring</em> movie.</span>
+          <span class="example-line">I need a <em>big</em> bag.</span>
+        </div>
+        <div class="formula-tab-item blue">
+          <div class="formula-tab-title">Setelah to be</div>
+          <span class="example-line">The food is <em>delicious</em>.</span>
+          <span class="example-line">He looks <em>tired</em> today.</span>
+          <span class="example-line">I feel <em>happy</em>.</span>
+        </div>
       </div>
-      <div class="grammar-box" style="margin-top:1rem">
-        <h4>Dialog sehari-hari — di warung makan</h4>
-        <span class="example-line">A: <em>Excuse me</em>, can I order, please?</span>
-        <span class="example-line">B: Of course! <em>What would you like?</em></span>
-        <span class="example-line">A: I'd like rice and chicken, please.</span>
-        <span class="example-line">B: <em>How much</em> rice? One portion?</span>
-        <span class="example-line">A: Yes, one portion. <em>How much is it?</em></span>
-        <span class="example-line">B: It's fifteen thousand rupiah.</span>
+
+      <p class="vocab-section-title" style="margin-top:1rem">Kata sifat berdasarkan kategori</p>
+
+      <div class="adj-category">
+        <div class="adj-cat-title">😊 Perasaan &amp; kondisi</div>
+        <div class="vocab-grid">
+          <div class="vocab-item"><div class="vocab-en">happy ↔ sad</div><div class="vocab-id">senang ↔ sedih</div></div>
+          <div class="vocab-item"><div class="vocab-en">excited ↔ bored</div><div class="vocab-id">antusias ↔ bosan</div></div>
+          <div class="vocab-item"><div class="vocab-en">hungry ↔ full</div><div class="vocab-id">lapar ↔ kenyang</div></div>
+          <div class="vocab-item"><div class="vocab-en">tired ↔ energetic</div><div class="vocab-id">lelah ↔ bersemangat</div></div>
+          <div class="vocab-item"><div class="vocab-en">sick ↔ healthy</div><div class="vocab-id">sakit ↔ sehat</div></div>
+          <div class="vocab-item"><div class="vocab-en">scared ↔ brave</div><div class="vocab-id">takut ↔ berani</div></div>
+        </div>
+      </div>
+
+      <div class="adj-category">
+        <div class="adj-cat-title">📏 Ukuran &amp; bentuk</div>
+        <div class="vocab-grid">
+          <div class="vocab-item"><div class="vocab-en">big ↔ small</div><div class="vocab-id">besar ↔ kecil</div></div>
+          <div class="vocab-item"><div class="vocab-en">tall ↔ short</div><div class="vocab-id">tinggi ↔ pendek</div></div>
+          <div class="vocab-item"><div class="vocab-en">long ↔ short</div><div class="vocab-id">panjang ↔ pendek</div></div>
+          <div class="vocab-item"><div class="vocab-en">fat ↔ thin</div><div class="vocab-id">gemuk ↔ kurus</div></div>
+          <div class="vocab-item"><div class="vocab-en">wide ↔ narrow</div><div class="vocab-id">lebar ↔ sempit</div></div>
+          <div class="vocab-item"><div class="vocab-en">heavy ↔ light</div><div class="vocab-id">berat ↔ ringan</div></div>
+        </div>
+      </div>
+
+      <div class="adj-category">
+        <div class="adj-cat-title">🌡️ Kualitas &amp; sifat</div>
+        <div class="vocab-grid">
+          <div class="vocab-item"><div class="vocab-en">hot ↔ cold</div><div class="vocab-id">panas ↔ dingin</div></div>
+          <div class="vocab-item"><div class="vocab-en">fast ↔ slow</div><div class="vocab-id">cepat ↔ lambat</div></div>
+          <div class="vocab-item"><div class="vocab-en">easy ↔ difficult</div><div class="vocab-id">mudah ↔ sulit</div></div>
+          <div class="vocab-item"><div class="vocab-en">cheap ↔ expensive</div><div class="vocab-id">murah ↔ mahal</div></div>
+          <div class="vocab-item"><div class="vocab-en">clean ↔ dirty</div><div class="vocab-id">bersih ↔ kotor</div></div>
+          <div class="vocab-item"><div class="vocab-en">new ↔ old</div><div class="vocab-id">baru ↔ lama/tua</div></div>
+          <div class="vocab-item"><div class="vocab-en">good ↔ bad</div><div class="vocab-id">baik ↔ buruk</div></div>
+          <div class="vocab-item"><div class="vocab-en">loud ↔ quiet</div><div class="vocab-id">keras ↔ pelan/sepi</div></div>
+        </div>
+      </div>
+
+      <div class="tip-box" style="margin-top:1rem">
+        <div class="tip-title">💡 Comparatives — Membandingkan dua hal</div>
+        <div class="tip-grid">
+          <div><strong>Adjective pendek + -er + than</strong><br>big → bigg<em>er than</em><br>cheap → cheap<em>er than</em></div>
+          <div><strong>Adjective panjang: more ... than</strong><br><em>more</em> expensive than<br><em>more</em> beautiful than</div>
+          <div><strong>Superlative (paling): the + -est</strong><br>the tall<em>est</em>, the fast<em>est</em></div>
+          <div><strong>Superlative panjang: the most</strong><br>the <em>most</em> expensive<br>the <em>most</em> interesting</div>
+        </div>
+      </div>
+
+      <div class="dialog-box">
+        <div class="dialog-title">💬 Dialog — Belanja baju di pasar</div>
+        <div class="dialog-line"><span class="dialog-speaker">Buyer:</span> <span class="dialog-text">Excuse me, do you have this shirt in a bigger size?</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Seller:</span> <span class="dialog-text">Yes! This one is larger. How about this color? It's brighter.</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Buyer:</span> <span class="dialog-text">Hmm, I prefer the darker one. How much is it?</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Seller:</span> <span class="dialog-text">It's Rp 80.000. It's cheaper than the one in the mall!</span></div>
+        <div class="dialog-line"><span class="dialog-speaker">Buyer:</span> <span class="dialog-text">Great! The quality looks good too. I'll take it.</span></div>
       </div>
     </div>
 
@@ -939,110 +1354,11 @@ main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:1rem">
         <div>
           <p style="font-size:15px;font-weight:600;color:var(--ink)">Bank Soal</p>
-          <p style="font-size:12px;color:var(--muted)">Import file JSON per topik — tersimpan otomatis di browser</p>
+          <p style="font-size:12px;color:var(--muted)">Import beberapa file JSON per topik — semua tersimpan & bisa dipilih</p>
         </div>
         <button class="btn-secondary" style="font-size:12px;padding:6px 14px" onclick="clearAllBanks()">🗑 Hapus Semua</button>
       </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px" id="bank-status-grid">
-
-        <div class="bank-slot" id="slot-simple_present">
-          <div class="bank-slot-top">
-            <span class="bank-icon">⏰</span>
-            <div style="flex:1">
-              <div class="bank-name">Simple Present Tense</div>
-              <div class="bank-count" id="count-simple_present">Belum diimport</div>
-            </div>
-            <div class="bank-actions">
-              <label class="import-btn" title="Import JSON">
-                ＋ Import
-                <input type="file" accept=".json" onchange="importBank('simple_present', this)" style="display:none">
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="bank-slot" id="slot-present_continuous">
-          <div class="bank-slot-top">
-            <span class="bank-icon">🔄</span>
-            <div style="flex:1">
-              <div class="bank-name">Present Continuous</div>
-              <div class="bank-count" id="count-present_continuous">Belum diimport</div>
-            </div>
-            <div class="bank-actions">
-              <label class="import-btn" title="Import JSON">
-                ＋ Import
-                <input type="file" accept=".json" onchange="importBank('present_continuous', this)" style="display:none">
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="bank-slot" id="slot-simple_past">
-          <div class="bank-slot-top">
-            <span class="bank-icon">⏪</span>
-            <div style="flex:1">
-              <div class="bank-name">Simple Past Tense</div>
-              <div class="bank-count" id="count-simple_past">Belum diimport</div>
-            </div>
-            <div class="bank-actions">
-              <label class="import-btn" title="Import JSON">
-                ＋ Import
-                <input type="file" accept=".json" onchange="importBank('simple_past', this)" style="display:none">
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="bank-slot" id="slot-question_words">
-          <div class="bank-slot-top">
-            <span class="bank-icon">❓</span>
-            <div style="flex:1">
-              <div class="bank-name">Question Words</div>
-              <div class="bank-count" id="count-question_words">Belum diimport</div>
-            </div>
-            <div class="bank-actions">
-              <label class="import-btn" title="Import JSON">
-                ＋ Import
-                <input type="file" accept=".json" onchange="importBank('question_words', this)" style="display:none">
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="bank-slot" id="slot-prepositions">
-          <div class="bank-slot-top">
-            <span class="bank-icon">📍</span>
-            <div style="flex:1">
-              <div class="bank-name">Prepositions</div>
-              <div class="bank-count" id="count-prepositions">Belum diimport</div>
-            </div>
-            <div class="bank-actions">
-              <label class="import-btn" title="Import JSON">
-                ＋ Import
-                <input type="file" accept=".json" onchange="importBank('prepositions', this)" style="display:none">
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="bank-slot" id="slot-adjectives">
-          <div class="bank-slot-top">
-            <span class="bank-icon">✨</span>
-            <div style="flex:1">
-              <div class="bank-name">Adjectives</div>
-              <div class="bank-count" id="count-adjectives">Belum diimport</div>
-            </div>
-            <div class="bank-actions">
-              <label class="import-btn" title="Import JSON">
-                ＋ Import
-                <input type="file" accept=".json" onchange="importBank('adjectives', this)" style="display:none">
-              </label>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <div style="display:flex;flex-direction:column;gap:10px" id="bank-status-grid"></div>
     </div>
 
     <!-- TOPIC PICKER -->
@@ -1058,32 +1374,36 @@ main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
       </div>
     </div>
 
+    <!-- FILE PICKER MODAL (shown when topic has multiple files) -->
+    <div id="file-picker-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center">
+      <div style="background:var(--white);border-radius:var(--radius-lg);padding:1.5rem;width:min(480px,90vw);max-height:80vh;overflow-y:auto">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+          <p style="font-size:15px;font-weight:600;color:var(--ink)" id="fp-title">Pilih Bank Soal</p>
+          <button onclick="closeFilePicker()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);line-height:1">✕</button>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:1rem" id="fp-sub"></p>
+        <div id="fp-list" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+    </div>
+
     <!-- QUIZ AREA -->
     <div id="s2-ai-quiz-wrap" style="display:none">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:1rem">
         <div>
           <span id="s2-active-topic-label" style="font-size:15px;font-weight:600;color:var(--ink)"></span>
-          <p style="font-size:12px;color:var(--muted);margin-top:2px">10 soal pilihan ganda — jawab semua untuk lihat hasil</p>
+          <p style="font-size:12px;color:var(--muted);margin-top:2px" id="s2-active-file-label"></p>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn-secondary" style="font-size:12px;padding:6px 14px" onclick="document.getElementById('s2-ai-quiz-wrap').style.display='none'">← Ganti Topik</button>
           <button class="btn-primary" style="font-size:12px;padding:6px 14px" onclick="startS2Quiz(currentS2Topic)">🔄 Soal Baru</button>
         </div>
       </div>
-
       <div class="score-row">
         <div class="score-card"><div class="score-num" id="s2-ai-score">0</div><div class="score-lbl">Benar</div></div>
         <div class="score-card"><div class="score-num" id="s2-ai-answered">0</div><div class="score-lbl">Dijawab</div></div>
         <div class="score-card"><div class="score-num" id="s2-ai-pct">0%</div><div class="score-lbl">Nilai</div></div>
       </div>
-
-      <div id="s2-ai-loading" style="display:none;text-align:center;padding:2.5rem 1rem">
-        <div class="loading-dots"><span></span><span></span><span></span></div>
-        <p style="font-size:14px;color:var(--muted);margin-top:1rem" id="s2-loading-msg">Memuat soal...</p>
-      </div>
-
       <div id="s2-ai-quiz-area"></div>
-
       <div id="s2-ai-result" style="display:none;text-align:center;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;margin-top:1rem">
         <div style="font-family:'Playfair Display',serif;font-size:56px;font-weight:900;color:var(--gold)" id="s2-ai-final-score">0</div>
         <div style="font-size:14px;color:var(--muted);margin:.5rem 0 1rem" id="s2-ai-final-label">dari 10 soal benar</div>
@@ -1094,6 +1414,7 @@ main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
   </div>
 </div><!-- end stage2 -->
+
 
 </main>
 
@@ -1348,7 +1669,7 @@ function showToBeResult() {
   document.getElementById('tobe-result').style.display='block';
 }
 
-// ===================== STAGE 2 — IMPORT & LOCALSTORAGE =====================
+// ===================== STAGE 2 — MULTI-FILE IMPORT & LOCALSTORAGE =====================
 const topicLabels = {
   simple_present:     '⏰ Simple Present Tense',
   present_continuous: '🔄 Present Continuous',
@@ -1357,36 +1678,28 @@ const topicLabels = {
   prepositions:       '📍 Prepositions',
   adjectives:         '✨ Adjectives'
 };
+const topicIcons = {
+  simple_present:'⏰', present_continuous:'🔄', simple_past:'⏪',
+  question_words:'❓', prepositions:'📍', adjectives:'✨'
+};
+const topicNames = {
+  simple_present:'Simple Present Tense', present_continuous:'Present Continuous',
+  simple_past:'Simple Past Tense', question_words:'Question Words',
+  prepositions:'Prepositions', adjectives:'Adjectives'
+};
 
-const LS_PREFIX = 'englearn_bank_';
+// localStorage key: englearn_files_{topic} → array of {id, name, questions}
+const LS_FILES = 'englearn_files_';
 
-// Load a bank from localStorage
-function loadBank(topic) {
-  try {
-    const raw = localStorage.getItem(LS_PREFIX + topic);
-    return raw ? JSON.parse(raw) : null;
-  } catch(e) { return null; }
+function getFiles(topic) {
+  try { return JSON.parse(localStorage.getItem(LS_FILES + topic) || '[]'); }
+  catch(e) { return []; }
+}
+function saveFiles(topic, files) {
+  localStorage.setItem(LS_FILES + topic, JSON.stringify(files));
 }
 
-// Save a bank to localStorage
-function saveBank(topic, questions) {
-  localStorage.setItem(LS_PREFIX + topic, JSON.stringify(questions));
-}
-
-// Remove a bank from localStorage
-function removeBank(topic) {
-  localStorage.removeItem(LS_PREFIX + topic);
-  refreshBankUI(topic);
-}
-
-// Clear all banks
-function clearAllBanks() {
-  if(!confirm('Hapus semua bank soal yang tersimpan?')) return;
-  Object.keys(topicLabels).forEach(t => localStorage.removeItem(LS_PREFIX + t));
-  Object.keys(topicLabels).forEach(t => refreshBankUI(t));
-}
-
-// Handle file import
+// Import a JSON file into a topic's file list
 function importBank(topic, input) {
   const file = input.files[0];
   if(!file) return;
@@ -1396,11 +1709,21 @@ function importBank(topic, input) {
       const data = JSON.parse(e.target.result);
       const questions = data.questions || data;
       if(!Array.isArray(questions) || questions.length === 0) throw new Error('Format tidak valid');
-      // Validate basic structure
       if(!questions[0].q || !questions[0].opts || questions[0].ans === undefined) throw new Error('Struktur JSON salah');
-      saveBank(topic, questions);
+
+      const files = getFiles(topic);
+      // Check duplicate filename
+      const fname = file.name.replace('.json','');
+      if(files.find(f => f.name === fname)) {
+        if(!confirm(`File "${fname}" sudah ada. Timpa?`)) { input.value=''; return; }
+        const idx = files.findIndex(f => f.name === fname);
+        files[idx] = { id: Date.now(), name: fname, questions };
+      } else {
+        files.push({ id: Date.now(), name: fname, questions });
+      }
+      saveFiles(topic, files);
       refreshBankUI(topic);
-      showToast(`✓ ${topicLabels[topic].split(' ').slice(1).join(' ')} — ${questions.length} soal berhasil diimport!`);
+      showToast(`✓ "${fname}" — ${questions.length} soal berhasil diimport!`);
     } catch(err) {
       showToast('⚠️ Gagal membaca file: ' + err.message, true);
     }
@@ -1409,95 +1732,176 @@ function importBank(topic, input) {
   reader.readAsText(file);
 }
 
-// Update UI for one bank slot
+// Remove one file from a topic
+function removeFile(topic, fileId) {
+  const files = getFiles(topic).filter(f => f.id !== fileId);
+  saveFiles(topic, files);
+  refreshBankUI(topic);
+  showToast('File dihapus.');
+}
+
+// Clear all
+function clearAllBanks() {
+  if(!confirm('Hapus semua bank soal yang tersimpan?')) return;
+  Object.keys(topicLabels).forEach(t => localStorage.removeItem(LS_FILES + t));
+  Object.keys(topicLabels).forEach(t => refreshBankUI(t));
+  showToast('Semua bank soal dihapus.');
+}
+
+// Render one topic slot
 function refreshBankUI(topic) {
-  const bank = loadBank(topic);
-  const slot  = document.getElementById('slot-' + topic);
-  const count = document.getElementById('count-' + topic);
-  const tbtn  = document.getElementById('tbtn-' + topic);
-  if(!slot) return;
-
-  if(bank && bank.length > 0) {
-    slot.classList.add('loaded');
-    count.textContent = bank.length + ' soal tersimpan';
-    // Add remove button if not already there
-    if(!slot.querySelector('.remove-btn')) {
-      const actions = slot.querySelector('.bank-actions');
-      const rb = document.createElement('button');
-      rb.className = 'remove-btn';
-      rb.title = 'Hapus bank soal ini';
-      rb.textContent = '✕';
-      rb.onclick = () => removeBank(topic);
-      actions.appendChild(rb);
-    }
-    if(tbtn) tbtn.classList.remove('topic-btn-disabled');
-  } else {
-    slot.classList.remove('loaded');
-    count.textContent = 'Belum diimport';
-    const rb = slot.querySelector('.remove-btn');
-    if(rb) rb.remove();
-    if(tbtn) tbtn.classList.add('topic-btn-disabled');
+  const grid = document.getElementById('bank-status-grid');
+  if(!grid) return;
+  let slot = document.getElementById('slot-' + topic);
+  if(!slot) {
+    slot = document.createElement('div');
+    slot.id = 'slot-' + topic;
+    slot.className = 'bank-slot';
+    grid.appendChild(slot);
   }
+
+  const files = getFiles(topic);
+  const hasFiles = files.length > 0;
+  const totalQ = files.reduce((s, f) => s + f.questions.length, 0);
+
+  slot.classList.toggle('loaded', hasFiles);
+
+  // Build file tags HTML
+  const tagsHtml = files.map(f => `
+    <span class="file-tag">
+      <span class="file-tag-name">${f.name}</span>
+      <span class="file-tag-count">${f.questions.length} soal</span>
+      <button class="file-tag-remove" onclick="removeFile('${topic}',${f.id})" title="Hapus file ini">✕</button>
+    </span>`).join('');
+
+  slot.innerHTML = `
+    <div class="bank-slot-top">
+      <span class="bank-icon">${topicIcons[topic]}</span>
+      <div style="flex:1;min-width:0">
+        <div class="bank-name">${topicNames[topic]}</div>
+        <div class="bank-count" id="count-${topic}">
+          ${hasFiles ? `${files.length} file &bull; ${totalQ} soal tersimpan` : 'Belum diimport'}
+        </div>
+      </div>
+      <div class="bank-actions">
+        <label class="import-btn" title="Tambah file JSON">
+          ＋ Import
+          <input type="file" accept=".json" onchange="importBank('${topic}',this)" style="display:none">
+        </label>
+      </div>
+    </div>
+    ${hasFiles ? `<div class="file-tags-row">${tagsHtml}</div>` : ''}`;
+
+  // Update topic button state
+  const tbtn = document.getElementById('tbtn-' + topic);
+  if(tbtn) tbtn.classList.toggle('topic-btn-disabled', !hasFiles);
 }
 
-// Toast notification
-function showToast(msg, isError) {
-  let t = document.getElementById('englearn-toast');
-  if(!t) {
-    t = document.createElement('div');
-    t.id = 'englearn-toast';
-    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--cream);padding:10px 20px;border-radius:10px;font-size:13px;font-weight:500;z-index:9999;transition:transform .3s ease;white-space:nowrap;max-width:90vw;text-align:center';
-    document.body.appendChild(t);
-  }
-  t.style.background = isError ? 'var(--coral)' : 'var(--ink)';
-  t.textContent = msg;
-  t.style.transform = 'translateX(-50%) translateY(0)';
-  clearTimeout(t._timer);
-  t._timer = setTimeout(() => { t.style.transform = 'translateX(-50%) translateY(80px)'; }, 3000);
-}
-
-// Init all bank slots on load
 function initBankUI() {
+  // Render all slots in order
   Object.keys(topicLabels).forEach(refreshBankUI);
 }
 
-// ---- QUIZ ----
+// ---- FILE PICKER (shown when topic has >1 file) ----
+let pickerTopic = '';
+
+function showFilePicker(topic) {
+  pickerTopic = topic;
+  const files = getFiles(topic);
+  document.getElementById('fp-title').textContent = topicIcons[topic] + ' ' + topicNames[topic];
+  document.getElementById('fp-sub').textContent = 'Pilih bank soal yang ingin digunakan:';
+  const list = document.getElementById('fp-list');
+  list.innerHTML = files.map(f => `
+    <button onclick="launchQuizFromFile('${topic}',${f.id})" style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:.875rem 1rem;border-radius:var(--radius);border:1.5px solid var(--border);background:var(--cream);cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;transition:all .15s;font-size:14px;color:var(--ink)"
+      onmouseover="this.style.borderColor='var(--gold)';this.style.background='var(--gold-light)'"
+      onmouseout="this.style.borderColor='var(--border)';this.style.background='var(--cream)'">
+      <span style="font-weight:500">${f.name}</span>
+      <span style="font-size:12px;color:var(--muted);background:var(--white);padding:2px 10px;border-radius:20px;border:1px solid var(--border)">${f.questions.length} soal</span>
+    </button>`).join('');
+
+  // Also add "Gabungkan semua" option if >1
+  if(files.length > 1) {
+    const totalQ = files.reduce((s,f)=>s+f.questions.length,0);
+    list.insertAdjacentHTML('beforeend', `
+      <button onclick="launchQuizFromFile('${topic}','all')" style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:.875rem 1rem;border-radius:var(--radius);border:1.5px solid var(--teal);background:var(--teal-light);cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;font-size:14px;color:var(--teal);font-weight:500">
+        <span>🔀 Gabungkan semua file</span>
+        <span style="font-size:12px;background:var(--white);padding:2px 10px;border-radius:20px;border:1px solid var(--teal);color:var(--teal)">${totalQ} soal</span>
+      </button>`);
+  }
+
+  const overlay = document.getElementById('file-picker-overlay');
+  overlay.style.display = 'flex';
+}
+
+function closeFilePicker() {
+  document.getElementById('file-picker-overlay').style.display = 'none';
+}
+
+// Close overlay on backdrop click
+document.getElementById('file-picker-overlay').addEventListener('click', function(e) {
+  if(e.target === this) closeFilePicker();
+});
+
+function launchQuizFromFile(topic, fileId) {
+  closeFilePicker();
+  const files = getFiles(topic);
+  let bank, label;
+  if(fileId === 'all') {
+    bank = files.flatMap(f => f.questions);
+    label = `Semua file &bull; ${bank.length} soal`;
+  } else {
+    const f = files.find(f => f.id === fileId);
+    if(!f) return;
+    bank = f.questions;
+    label = `${f.name} &bull; ${f.questions.length} soal`;
+  }
+  runQuiz(topic, bank, label);
+}
+
+// ---- QUIZ LAUNCH ----
 let currentS2Topic = '';
 let s2State = { score:0, answered:0, total:10 };
 
 function startS2Quiz(topic) {
-  const bank = loadBank(topic);
-  if(!bank || bank.length === 0) {
+  const files = getFiles(topic);
+  if(!files.length) {
     showToast('⚠️ Import file JSON untuk topik ini dulu!', true);
     return;
   }
+  // If only 1 file, launch directly. If >1, show picker.
+  if(files.length === 1) {
+    launchQuizFromFile(topic, files[0].id);
+  } else {
+    showFilePicker(topic);
+  }
+}
 
+function runQuiz(topic, bank, fileLabel) {
   currentS2Topic = topic;
   s2State = { score:0, answered:0, total:10 };
 
   document.getElementById('s2-active-topic-label').textContent = topicLabels[topic];
+  document.getElementById('s2-active-file-label').innerHTML = fileLabel + ' &bull; 10 soal acak';
   document.getElementById('s2-ai-score').textContent = '0';
   document.getElementById('s2-ai-answered').textContent = '0';
   document.getElementById('s2-ai-pct').textContent = '0%';
   document.getElementById('s2-ai-result').style.display = 'none';
   document.getElementById('s2-ai-quiz-area').innerHTML = '';
   document.getElementById('s2-ai-quiz-wrap').style.display = 'block';
-  document.getElementById('s2-ai-loading').style.display = 'none';
 
   document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active-topic'));
   const tbtn = document.getElementById('tbtn-' + topic);
   if(tbtn) tbtn.classList.add('active-topic');
 
-  // Pick 10 random from bank
   const shuffled = [...bank].sort(() => Math.random() - 0.5);
-  const selected = shuffled.slice(0, 10);
+  const selected = shuffled.slice(0, Math.min(10, shuffled.length));
   s2State.total = selected.length;
   renderS2Quiz(selected);
 }
 
 function renderS2Quiz(questions) {
   const area = document.getElementById('s2-ai-quiz-area');
-  const labelShort = topicLabels[currentS2Topic].split(' ').slice(1).join(' ');
+  const labelShort = topicNames[currentS2Topic];
   area.innerHTML = '';
   questions.forEach((q, i) => {
     const div = document.createElement('div');
@@ -1547,9 +1951,27 @@ function showS2Result() {
   document.getElementById('s2-ai-result').style.display = 'block';
 }
 
-// Init on page load
-initBankUI();
-// ===================== END IMPORT & LOCALSTORAGE =====================
+// Toast
+function showToast(msg, isError) {
+  let t = document.getElementById('englearn-toast');
+  if(!t) {
+    t = document.createElement('div');
+    t.id = 'englearn-toast';
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--cream);padding:10px 20px;border-radius:10px;font-size:13px;font-weight:500;z-index:9999;transition:transform .3s ease;white-space:nowrap;max-width:90vw;text-align:center;pointer-events:none';
+    document.body.appendChild(t);
+  }
+  t.style.background = isError ? 'var(--coral)' : 'var(--ink)';
+  t.textContent = msg;
+  t.style.transform = 'translateX(-50%) translateY(0)';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => { t.style.transform = 'translateX(-50%) translateY(80px)'; }, 3000);
+}
+
+function initBankUIAll() {
+  Object.keys(topicLabels).forEach(refreshBankUI);
+}
+initBankUIAll();
+// ===================== END MULTI-FILE IMPORT =====================
 </script>
 </body>
 </html>
