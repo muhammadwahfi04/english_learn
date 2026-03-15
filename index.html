@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LearnEnglish — Belajar Bahasa Inggris</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #FAF7F2;
+  --ink: #1A1714;
+  --gold: #C9973A;
+  --gold-light: #F5E6C8;
+  --teal: #2A6B6B;
+  --teal-light: #E0F0F0;
+  --coral: #D4604A;
+  --coral-light: #FAE8E4;
+  --sage: #5A7A5A;
+  --sage-light: #E8F0E8;
+  --muted: #8A8278;
+  --border: #E8E2D8;
+  --white: #FFFFFF;
+  --radius: 12px;
+  --radius-lg: 20px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--cream);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  display: flex; align-items: center; gap: 1.5rem;
+  height: 60px;
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 900; color: var(--ink);
+  letter-spacing: -0.5px; margin-right: auto;
+}
+.nav-logo span { color: var(--gold); }
+.nav-tab {
+  font-size: 13px; font-weight: 500; color: var(--muted);
+  padding: 6px 14px; border-radius: 20px;
+  cursor: pointer; border: none; background: transparent;
+  transition: all .2s;
+}
+.nav-tab:hover { color: var(--ink); background: var(--border); }
+.nav-tab.active { background: var(--ink); color: var(--cream); }
+
+/* MAIN */
+main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 3rem 1rem 2.5rem;
+  position: relative;
+}
+.hero-tag {
+  display: inline-block;
+  font-size: 11px; font-weight: 600; letter-spacing: 2px;
+  color: var(--gold); text-transform: uppercase;
+  background: var(--gold-light);
+  padding: 4px 14px; border-radius: 20px;
+  margin-bottom: 1rem;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 6vw, 58px);
+  font-weight: 900; line-height: 1.1;
+  letter-spacing: -1px; margin-bottom: 1rem;
+}
+.hero h1 em { color: var(--gold); font-style: italic; }
+.hero p {
+  font-size: 16px; color: var(--muted);
+  max-width: 480px; margin: 0 auto 2rem;
+}
+.hero-stages {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+}
+.stage-pill {
+  padding: 8px 20px; border-radius: 20px;
+  font-size: 13px; font-weight: 500; cursor: pointer;
+  border: 1.5px solid var(--border);
+  transition: all .2s;
+}
+.stage-pill.s1 { background: var(--teal-light); color: var(--teal); border-color: var(--teal); }
+.stage-pill.s2 { background: var(--coral-light); color: var(--coral); border-color: var(--coral); }
+.stage-pill:hover { transform: translateY(-2px); }
+
+/* PAGE VIEWS */
+.page { display: none; animation: fadeUp .4s ease; }
+.page.active { display: block; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* SECTION HEADER */
+.sec-header {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 1.5rem; padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.sec-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.sec-icon.teal { background: var(--teal-light); }
+.sec-icon.coral { background: var(--coral-light); }
+.sec-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px; font-weight: 700;
+}
+.sec-header p { font-size: 13px; color: var(--muted); }
+
+/* MATERI CARDS */
+.materi-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px; margin-bottom: 2rem;
+}
+.materi-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all .2s;
+}
+.materi-card:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: 0 8px 24px rgba(0,0,0,.07); }
+.materi-card.active-card { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-light); }
+.mc-top { display: flex; align-items: center; gap: 10px; margin-bottom: .75rem; }
+.mc-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.mc-title { font-weight: 600; font-size: 14px; }
+.mc-sub { font-size: 12px; color: var(--muted); }
+.mc-preview {
+  font-size: 12px; color: var(--muted);
+  background: var(--cream);
+  padding: 8px 10px; border-radius: 8px;
+  font-family: 'DM Mono', monospace;
+  line-height: 1.8;
+}
+
+/* MATERI DETAIL */
+.materi-detail {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.materi-detail h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; margin-bottom: 1rem;
+}
+.vocab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px; margin: 1rem 0;
+}
+.vocab-item {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .6rem .75rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all .15s;
+}
+.vocab-item:hover { background: var(--gold-light); border-color: var(--gold); }
+.vocab-en { font-weight: 600; font-size: 15px; }
+.vocab-id { font-size: 12px; color: var(--muted); }
+
+.grammar-box {
+  background: var(--teal-light);
+  border: 1px solid #b0d4d4;
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin: .75rem 0;
+}
+.grammar-box.coral { background: var(--coral-light); border-color: #e8c0b8; }
+.grammar-box h4 { font-weight: 600; font-size: 14px; margin-bottom: .5rem; color: var(--teal); }
+.grammar-box.coral h4 { color: var(--coral); }
+.grammar-box p, .grammar-box li {
+  font-size: 13px; color: var(--ink);
+  line-height: 1.7;
+}
+.grammar-box ul { padding-left: 1.25rem; }
+.example-line {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  background: var(--white);
+  border-radius: 6px;
+  padding: 4px 10px;
+  margin: 3px 0;
+  display: block;
+}
+.example-line em { color: var(--gold); font-style: normal; font-weight: 600; }
+
+/* TABS INSIDE PAGE */
+.inner-tabs {
+  display: flex; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap;
+}
+.inner-tab {
+  font-size: 12px; font-weight: 500;
+  padding: 5px 14px; border-radius: 20px;
+  border: 1px solid var(--border);
+  background: transparent; color: var(--muted);
+  cursor: pointer; transition: all .15s;
+}
+.inner-tab:hover { background: var(--cream); color: var(--ink); }
+.inner-tab.active { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+.inner-section { display: none; }
+.inner-section.active { display: block; }
+
+/* QUIZ */
+.q-prog {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 1.25rem;
+}
+.prog-bar {
+  flex: 1; height: 4px; background: var(--border); border-radius: 4px; overflow: hidden;
+}
+.prog-fill {
+  height: 100%; background: var(--gold);
+  border-radius: 4px; transition: width .4s;
+}
+.prog-label { font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+.q-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+.q-badge {
+  display: inline-block;
+  font-size: 10px; font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase; padding: 3px 10px;
+  border-radius: 20px; margin-bottom: .75rem;
+}
+.q-badge.vocab { background: var(--sage-light); color: var(--sage); }
+.q-badge.grammar { background: var(--teal-light); color: var(--teal); }
+.q-badge.sentence { background: var(--coral-light); color: var(--coral); }
+.q-badge.conv { background: var(--gold-light); color: var(--gold); }
+
+.q-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 700;
+  margin-bottom: 1.25rem; line-height: 1.4;
+}
+.q-opts {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+@media(max-width:480px){ .q-opts { grid-template-columns: 1fr; } }
+.q-opt {
+  padding: 10px 14px; border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  background: var(--white); color: var(--ink);
+  font-size: 14px; font-weight: 500;
+  text-align: left; cursor: pointer;
+  transition: all .15s;
+}
+.q-opt:hover { border-color: var(--gold); background: var(--gold-light); }
+.q-opt.correct { background: var(--sage-light); border-color: var(--sage); color: var(--sage); }
+.q-opt.wrong { background: var(--coral-light); border-color: var(--coral); color: var(--coral); }
+.q-opt.reveal { background: var(--sage-light); border-color: var(--sage); color: var(--sage); }
+.q-opt:disabled { cursor: default; }
+.q-feedback {
+  margin-top: .75rem; padding: .75rem 1rem;
+  border-radius: var(--radius); font-size: 13px;
+  display: none; line-height: 1.6;
+}
+.q-feedback.show { display: block; }
+.q-feedback.ok { background: var(--sage-light); color: var(--sage); }
+.q-feedback.no { background: var(--coral-light); color: var(--coral); }
+
+.q-fill-row {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin-bottom: .5rem;
+}
+
+.bank-slot {
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: .875rem 1rem;
+  transition: all .2s;
+}
+.bank-slot.loaded { border-color: var(--sage); background: var(--sage-light); }
+.bank-slot-top { display:flex; align-items:center; gap:10px; }
+.bank-icon { font-size:18px; flex-shrink:0; }
+.bank-name { font-size:13px; font-weight:600; color:var(--ink); }
+.bank-count { font-size:11px; color:var(--muted); margin-top:2px; }
+.bank-slot.loaded .bank-count { color:var(--sage); font-weight:500; }
+.bank-actions { display:flex; gap:6px; flex-shrink:0; align-items:center; }
+.import-btn {
+  font-size:12px; font-weight:500; padding:5px 12px;
+  border-radius:8px; border:1px solid var(--border);
+  background:var(--white); color:var(--muted);
+  cursor:pointer; transition:all .15s; white-space:nowrap;
+  display:inline-block;
+}
+.import-btn:hover { border-color:var(--gold); background:var(--gold-light); color:var(--ink); }
+.bank-slot.loaded .import-btn { border-color:var(--sage); color:var(--sage); }
+.bank-slot.loaded .import-btn:hover { background:var(--sage-light); }
+.remove-btn {
+  font-size:16px; padding:2px 6px; line-height:1;
+  border-radius:6px; border:1px solid var(--border);
+  background:transparent; color:var(--muted); cursor:pointer; transition:all .15s;
+}
+.remove-btn:hover { border-color:var(--coral); color:var(--coral); background:var(--coral-light); }
+.topic-btn-disabled { opacity:.4; pointer-events:none; }
+
+.topic-btn {
+  padding: 12px 16px; border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  background: var(--white); color: var(--ink);
+  font-size: 13px; font-weight: 500;
+  text-align: left; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all .2s;
+}
+.topic-btn:hover { border-color: var(--gold); background: var(--gold-light); transform: translateY(-2px); }
+.topic-btn.active-topic { border-color: var(--teal); background: var(--teal-light); color: var(--teal); }
+
+.loading-dots { display: flex; gap: 8px; justify-content: center; }
+.loading-dots span {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--gold); animation: ldot .8s ease-in-out infinite;
+}
+.loading-dots span:nth-child(2) { animation-delay: .15s; }
+.loading-dots span:nth-child(3) { animation-delay: .3s; }
+@keyframes ldot { 0%,80%,100%{transform:scale(.6);opacity:.4} 40%{transform:scale(1);opacity:1} }
+
+.tobe-inp {
+  border: 1.5px solid var(--gold);
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 15px;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  background: var(--gold-light);
+  color: var(--ink);
+  width: 90px;
+  outline: none;
+  transition: all .15s;
+  vertical-align: middle;
+  text-align: center;
+}
+.tobe-inp:focus { border-color: var(--teal); background: var(--teal-light); }
+.tobe-inp:disabled { cursor: default; }
+.q-fill-inp {
+  border: 1.5px solid var(--border);
+  border-radius: 8px; padding: 7px 12px;
+  font-size: 15px; font-family: 'DM Sans', sans-serif;
+  background: var(--white); color: var(--ink);
+  width: 110px; outline: none;
+  transition: border-color .15s;
+}
+.q-fill-inp:focus { border-color: var(--gold); }
+.q-fill-inp.ok { border-color: var(--sage); background: var(--sage-light); color: var(--sage); }
+.q-fill-inp.no { border-color: var(--coral); background: var(--coral-light); color: var(--coral); }
+
+.btn-primary {
+  background: var(--ink); color: var(--cream);
+  border: none; padding: 10px 24px;
+  border-radius: 10px; font-size: 14px; font-weight: 500;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+  transition: all .15s;
+}
+.btn-primary:hover { background: #333; transform: translateY(-1px); }
+.btn-secondary {
+  background: transparent; color: var(--muted);
+  border: 1px solid var(--border); padding: 10px 24px;
+  border-radius: 10px; font-size: 14px; font-weight: 500;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+  transition: all .15s;
+}
+.btn-secondary:hover { background: var(--cream); color: var(--ink); }
+
+.quiz-result {
+  text-align: center; padding: 2rem;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  display: none;
+}
+.quiz-result.show { display: block; }
+.result-score {
+  font-family: 'Playfair Display', serif;
+  font-size: 64px; font-weight: 900;
+  color: var(--gold); line-height: 1;
+}
+.result-label { font-size: 16px; color: var(--muted); margin: .5rem 0 1.5rem; }
+.result-msg { font-size: 15px; margin-bottom: 1.5rem; }
+
+/* MATCH */
+.match-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+.match-item {
+  padding: 9px 12px; border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  font-size: 14px; cursor: pointer;
+  background: var(--white); color: var(--ink);
+  transition: all .15s; text-align: center;
+}
+.match-item:hover { border-color: var(--gold); background: var(--gold-light); }
+.match-item.sel { border-color: var(--teal); background: var(--teal-light); color: var(--teal); }
+.match-item.matched { border-color: var(--sage); background: var(--sage-light); color: var(--sage); cursor: default; }
+.match-item.err { border-color: var(--coral); background: var(--coral-light); color: var(--coral); }
+
+/* SCORE BADGE */
+.score-row {
+  display: flex; gap: 10px; margin-bottom: 1rem;
+}
+.score-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: .75rem 1rem;
+  text-align: center; flex: 1;
+}
+.score-num { font-size: 24px; font-weight: 700; color: var(--gold); }
+.score-lbl { font-size: 11px; color: var(--muted); }
+
+/* BACK BTN */
+.back-btn {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; color: var(--muted);
+  background: none; border: none; cursor: pointer;
+  margin-bottom: 1.5rem; padding: 0;
+  font-family: 'DM Sans', sans-serif;
+}
+.back-btn:hover { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Learn<span>English</span></div>
+  <button class="nav-tab active" onclick="showPage('home')">Beranda</button>
+  <button class="nav-tab" onclick="showPage('stage1')">Tahap 1</button>
+  <button class="nav-tab" onclick="showPage('stage2')">Tahap 2</button>
+</nav>
+
+<main>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-tag">Belajar dari nol</div>
+    <h1>Bahasa Inggris<br>untuk <em>Semua Orang</em></h1>
+    <p>Mulai dari nol sampai percakapan sehari-hari. Materi lengkap, latihan interaktif, dan penjelasan dalam bahasa Indonesia.</p>
+    <div class="hero-stages">
+      <button class="stage-pill s1" onclick="showPage('stage1')">🌱 Tahap 1 — Absolute Beginner</button>
+      <button class="stage-pill s2" onclick="showPage('stage2')">📗 Tahap 2 — Elementary A1–A2</button>
+    </div>
+  </div>
+
+  <div class="materi-grid">
+    <div class="materi-card" onclick="showPage('stage1')">
+      <div class="mc-top">
+        <div class="mc-icon" style="background:#E0F0F0">🌱</div>
+        <div>
+          <div class="mc-title">Tahap 1 — Absolute Beginner</div>
+          <div class="mc-sub">0–3 bulan • 6 topik</div>
+        </div>
+      </div>
+      <div class="mc-preview">Alphabet, Greetings, Numbers,<br>Colors, Basic Vocab, To Be</div>
+    </div>
+    <div class="materi-card" onclick="showPage('stage2')">
+      <div class="mc-top">
+        <div class="mc-icon" style="background:#FAE8E4">📗</div>
+        <div>
+          <div class="mc-title">Tahap 2 — Elementary A1–A2</div>
+          <div class="mc-sub">3–9 bulan • 6 topik</div>
+        </div>
+      </div>
+      <div class="mc-preview">Tenses, Questions, Prepositions,<br>Adjectives, Daily Conversation</div>
+    </div>
+  </div>
+</div>
+
+<!-- STAGE 1 -->
+<div id="page-stage1" class="page">
+  <button class="back-btn" onclick="showPage('home')">← Kembali</button>
+  <div class="sec-header">
+    <div class="sec-icon teal">🌱</div>
+    <div>
+      <h2>Tahap 1 — Absolute Beginner</h2>
+      <p>Mulai dari dasar: alphabet, sapaan, angka, warna, dan kalimat pertamamu</p>
+    </div>
+  </div>
+
+  <div class="inner-tabs">
+    <button class="inner-tab active" onclick="showInner('s1','materi')">Materi</button>
+    <button class="inner-tab" onclick="showInner('s1','tobe')">✏️ Latihan To Be</button>
+    <button class="inner-tab" onclick="showInner('s1','latihan')">Latihan Soal</button>
+  </div>
+
+  <!-- S1 MATERI -->
+  <div id="s1-materi" class="inner-section active">
+
+    <!-- Alphabet -->
+    <div class="materi-detail">
+      <h3>🔤 1. Alphabet & Pronunciation</h3>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:1rem">26 huruf dalam bahasa Inggris, dibaca berbeda dengan bahasa Indonesia.</p>
+      <div class="vocab-grid">
+        <div class="vocab-item"><div class="vocab-en">A a</div><div class="vocab-id">"ei"</div></div>
+        <div class="vocab-item"><div class="vocab-en">B b</div><div class="vocab-id">"bi"</div></div>
+        <div class="vocab-item"><div class="vocab-en">C c</div><div class="vocab-id">"si"</div></div>
+        <div class="vocab-item"><div class="vocab-en">D d</div><div class="vocab-id">"di"</div></div>
+        <div class="vocab-item"><div class="vocab-en">E e</div><div class="vocab-id">"i"</div></div>
+        <div class="vocab-item"><div class="vocab-en">F f</div><div class="vocab-id">"ef"</div></div>
+        <div class="vocab-item"><div class="vocab-en">G g</div><div class="vocab-id">"ji"</div></div>
+        <div class="vocab-item"><div class="vocab-en">H h</div><div class="vocab-id">"eich"</div></div>
+        <div class="vocab-item"><div class="vocab-en">I i</div><div class="vocab-id">"ai"</div></div>
+        <div class="vocab-item"><div class="vocab-en">J j</div><div class="vocab-id">"jei"</div></div>
+        <div class="vocab-item"><div class="vocab-en">K k</div><div class="vocab-id">"kei"</div></div>
+        <div class="vocab-item"><div class="vocab-en">L l</div><div class="vocab-id">"el"</div></div>
+        <div class="vocab-item"><div class="vocab-en">M m</div><div class="vocab-id">"em"</div></div>
+        <div class="vocab-item"><div class="vocab-en">N n</div><div class="vocab-id">"en"</div></div>
+        <div class="vocab-item"><div class="vocab-en">O o</div><div class="vocab-id">"ou"</div></div>
+        <div class="vocab-item"><div class="vocab-en">P p</div><div class="vocab-id">"pi"</div></div>
+        <div class="vocab-item"><div class="vocab-en">Q q</div><div class="vocab-id">"kyu"</div></div>
+        <div class="vocab-item"><div class="vocab-en">R r</div><div class="vocab-id">"ar"</div></div>
+        <div class="vocab-item"><div class="vocab-en">S s</div><div class="vocab-id">"es"</div></div>
+        <div class="vocab-item"><div class="vocab-en">T t</div><div class="vocab-id">"ti"</div></div>
+        <div class="vocab-item"><div class="vocab-en">U u</div><div class="vocab-id">"yu"</div></div>
+        <div class="vocab-item"><div class="vocab-en">V v</div><div class="vocab-id">"vi"</div></div>
+        <div class="vocab-item"><div class="vocab-en">W w</div><div class="vocab-id">"dabl-yu"</div></div>
+        <div class="vocab-item"><div class="vocab-en">X x</div><div class="vocab-id">"eks"</div></div>
+        <div class="vocab-item"><div class="vocab-en">Y y</div><div class="vocab-id">"wai"</div></div>
+        <div class="vocab-item"><div class="vocab-en">Z z</div><div class="vocab-id">"zi"</div></div>
+      </div>
+    </div>
+
+    <!-- Greetings -->
+    <div class="materi-detail">
+      <h3>👋 2. Greetings & Introductions</h3>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:1rem">Sapaan dasar yang wajib dikuasai terlebih dahulu.</p>
+      <div class="vocab-grid">
+        <div class="vocab-item"><div class="vocab-en">Good morning</div><div class="vocab-id">Selamat pagi</div></div>
+        <div class="vocab-item"><div class="vocab-en">Good afternoon</div><div class="vocab-id">Selamat siang</div></div>
+        <div class="vocab-item"><div class="vocab-en">Good evening</div><div class="vocab-id">Selamat malam</div></div>
+        <div class="vocab-item"><div class="vocab-en">Good night</div><div class="vocab-id">Selamat tidur</div></div>
+        <div class="vocab-item"><div class="vocab-en">Hello / Hi</div><div class="vocab-id">Halo / Hai</div></div>
+        <div class="vocab-item"><div class="vocab-en">Goodbye / Bye</div><div class="vocab-id">Selamat tinggal</div></div>
+        <div class="vocab-item"><div class="vocab-en">How are you?</div><div class="vocab-id">Apa kabar?</div></div>
+        <div class="vocab-item"><div class="vocab-en">I'm fine, thanks</div><div class="vocab-id">Saya baik, terima kasih</div></div>
+        <div class="vocab-item"><div class="vocab-en">Nice to meet you</div><div class="vocab-id">Senang bertemu kamu</div></div>
+        <div class="vocab-item"><div class="vocab-en">See you later</div><div class="vocab-id">Sampai jumpa nanti</div></div>
+        <div class="vocab-item"><div class="vocab-en">Please</div><div class="vocab-id">Tolong / Silakan</div></div>
+        <div class="vocab-item"><div class="vocab-en">Thank you</div><div class="vocab-id">Terima kasih</div></div>
+        <div class="vocab-item"><div class="vocab-en">You're welcome</div><div class="vocab-id">Sama-sama</div></div>
+        <div class="vocab-item"><div class="vocab-en">Sorry / Excuse me</div><div class="vocab-id">Maaf / Permisi</div></div>
+      </div>
+      <div class="grammar-box" style="margin-top:1rem">
+        <h4>Contoh Perkenalan Diri</h4>
+        <span class="example-line">A: Hi! My name <em>is</em> Budi. What's your name?</span>
+        <span class="example-line">B: Hello! I'm Sari. Nice to meet you, Budi.</span>
+        <span class="example-line">A: Nice to meet you too! How are you?</span>
+        <span class="example-line">B: I'm fine, thank you. And you?</span>
+      </div>
+    </div>
+
+    <!-- Numbers -->
+    <div class="materi-detail">
+      <h3>🔢 3. Numbers (Angka)</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+        <div>
+          <p style="font-size:13px;font-weight:600;margin-bottom:.5rem">Cardinal (1–20)</p>
+          <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+            <div class="vocab-item"><div class="vocab-en">1 One</div></div>
+            <div class="vocab-item"><div class="vocab-en">2 Two</div></div>
+            <div class="vocab-item"><div class="vocab-en">3 Three</div></div>
+            <div class="vocab-item"><div class="vocab-en">4 Four</div></div>
+            <div class="vocab-item"><div class="vocab-en">5 Five</div></div>
+            <div class="vocab-item"><div class="vocab-en">6 Six</div></div>
+            <div class="vocab-item"><div class="vocab-en">7 Seven</div></div>
+            <div class="vocab-item"><div class="vocab-en">8 Eight</div></div>
+            <div class="vocab-item"><div class="vocab-en">9 Nine</div></div>
+            <div class="vocab-item"><div class="vocab-en">10 Ten</div></div>
+            <div class="vocab-item"><div class="vocab-en">11 Eleven</div></div>
+            <div class="vocab-item"><div class="vocab-en">12 Twelve</div></div>
+            <div class="vocab-item"><div class="vocab-en">13 Thirteen</div></div>
+            <div class="vocab-item"><div class="vocab-en">20 Twenty</div></div>
+            <div class="vocab-item"><div class="vocab-en">50 Fifty</div></div>
+            <div class="vocab-item"><div class="vocab-en">100 Hundred</div></div>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:13px;font-weight:600;margin-bottom:.5rem">Ordinal (urutan)</p>
+          <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+            <div class="vocab-item"><div class="vocab-en">1st First</div></div>
+            <div class="vocab-item"><div class="vocab-en">2nd Second</div></div>
+            <div class="vocab-item"><div class="vocab-en">3rd Third</div></div>
+            <div class="vocab-item"><div class="vocab-en">4th Fourth</div></div>
+            <div class="vocab-item"><div class="vocab-en">5th Fifth</div></div>
+            <div class="vocab-item"><div class="vocab-en">10th Tenth</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Colors -->
+    <div class="materi-detail">
+      <h3>🎨 4. Colors (Warna)</h3>
+      <div class="vocab-grid">
+        <div class="vocab-item" style="border-left:4px solid #E53935"><div class="vocab-en">Red</div><div class="vocab-id">Merah</div></div>
+        <div class="vocab-item" style="border-left:4px solid #1E88E5"><div class="vocab-en">Blue</div><div class="vocab-id">Biru</div></div>
+        <div class="vocab-item" style="border-left:4px solid #43A047"><div class="vocab-en">Green</div><div class="vocab-id">Hijau</div></div>
+        <div class="vocab-item" style="border-left:4px solid #FFD600"><div class="vocab-en">Yellow</div><div class="vocab-id">Kuning</div></div>
+        <div class="vocab-item" style="border-left:4px solid #FB8C00"><div class="vocab-en">Orange</div><div class="vocab-id">Oranye</div></div>
+        <div class="vocab-item" style="border-left:4px solid #8E24AA"><div class="vocab-en">Purple</div><div class="vocab-id">Ungu</div></div>
+        <div class="vocab-item" style="border-left:4px solid #EC407A"><div class="vocab-en">Pink</div><div class="vocab-id">Merah muda</div></div>
+        <div class="vocab-item" style="border-left:4px solid #795548"><div class="vocab-en">Brown</div><div class="vocab-id">Cokelat</div></div>
+        <div class="vocab-item" style="border-left:4px solid #212121"><div class="vocab-en">Black</div><div class="vocab-id">Hitam</div></div>
+        <div class="vocab-item" style="border-left:4px solid #BDBDBD"><div class="vocab-en">White</div><div class="vocab-id">Putih</div></div>
+        <div class="vocab-item" style="border-left:4px solid #90A4AE"><div class="vocab-en">Gray</div><div class="vocab-id">Abu-abu</div></div>
+        <div class="vocab-item" style="border-left:4px solid #26C6DA"><div class="vocab-en">Light blue</div><div class="vocab-id">Biru muda</div></div>
+      </div>
+    </div>
+
+    <!-- Basic Vocab -->
+    <div class="materi-detail">
+      <h3>📦 5. Basic Vocabulary (Kosakata Dasar)</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:.75rem">Benda sehari-hari yang sering dijumpai.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <div>
+          <p style="font-size:13px;font-weight:600;margin-bottom:.5rem">Anggota keluarga</p>
+          <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+            <div class="vocab-item"><div class="vocab-en">Mother</div><div class="vocab-id">Ibu</div></div>
+            <div class="vocab-item"><div class="vocab-en">Father</div><div class="vocab-id">Ayah</div></div>
+            <div class="vocab-item"><div class="vocab-en">Sister</div><div class="vocab-id">Kakak/adik perempuan</div></div>
+            <div class="vocab-item"><div class="vocab-en">Brother</div><div class="vocab-id">Kakak/adik laki-laki</div></div>
+            <div class="vocab-item"><div class="vocab-en">Friend</div><div class="vocab-id">Teman</div></div>
+            <div class="vocab-item"><div class="vocab-en">Teacher</div><div class="vocab-id">Guru</div></div>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:13px;font-weight:600;margin-bottom:.5rem">Makanan & minuman</p>
+          <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+            <div class="vocab-item"><div class="vocab-en">Rice</div><div class="vocab-id">Nasi</div></div>
+            <div class="vocab-item"><div class="vocab-en">Water</div><div class="vocab-id">Air</div></div>
+            <div class="vocab-item"><div class="vocab-en">Chicken</div><div class="vocab-id">Ayam</div></div>
+            <div class="vocab-item"><div class="vocab-en">Fish</div><div class="vocab-id">Ikan</div></div>
+            <div class="vocab-item"><div class="vocab-en">Fruit</div><div class="vocab-id">Buah</div></div>
+            <div class="vocab-item"><div class="vocab-en">Milk</div><div class="vocab-id">Susu</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- To Be -->
+    <div class="materi-detail">
+      <h3>📝 6. To Be — am / is / are</h3>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:1rem">"To Be" adalah kata kerja paling dasar dalam bahasa Inggris, artinya "adalah/sedang".</p>
+      <div class="grammar-box">
+        <h4>Rumus dasar</h4>
+        <ul style="padding-left:1.2rem">
+          <li><span class="example-line"><em>I</em> → am | I <em>am</em> a student.</span></li>
+          <li><span class="example-line"><em>He / She / It</em> → is | She <em>is</em> happy.</span></li>
+          <li><span class="example-line"><em>You / We / They</em> → are | They <em>are</em> friends.</span></li>
+        </ul>
+      </div>
+      <div class="grammar-box coral" style="margin-top:.75rem">
+        <h4>Kalimat negatif — tambahkan "not"</h4>
+        <span class="example-line">I <em>am not</em> (I'm not) tired.</span>
+        <span class="example-line">She <em>is not</em> (isn't) here.</span>
+        <span class="example-line">They <em>are not</em> (aren't) students.</span>
+      </div>
+      <div class="grammar-box" style="margin-top:.75rem">
+        <h4>Kalimat tanya — pindahkan To Be ke depan</h4>
+        <span class="example-line"><em>Am</em> I late? — <em>Yes, you are.</em></span>
+        <span class="example-line"><em>Is</em> she a teacher? — <em>Yes, she is.</em></span>
+        <span class="example-line"><em>Are</em> they happy? — <em>No, they aren't.</em></span>
+      </div>
+    </div>
+
+  </div><!-- end s1-materi -->
+
+  <!-- S1 TO BE LATIHAN -->
+  <div id="s1-tobe" class="inner-section">
+
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.25rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:1rem">
+        <div>
+          <p style="font-size:15px;font-weight:600;color:var(--ink)">Latihan To Be — am / is / are</p>
+          <p style="font-size:12px;color:var(--muted)">Ketik jawaban yang tepat, lalu tekan Enter atau klik Cek</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:12px;color:var(--muted)" id="tobe-round-label">Ronde 1</span>
+          <button class="btn-primary" style="padding:7px 16px;font-size:13px" onclick="generateToBeQuiz()">🔄 Generate 10 Soal Baru</button>
+        </div>
+      </div>
+
+      <div class="score-row">
+        <div class="score-card"><div class="score-num" id="tobe-score">0</div><div class="score-lbl">Benar</div></div>
+        <div class="score-card"><div class="score-num" id="tobe-answered">0</div><div class="score-lbl">Dijawab</div></div>
+        <div class="score-card"><div class="score-num" id="tobe-pct">0%</div><div class="score-lbl">Akurasi</div></div>
+      </div>
+    </div>
+
+    <div id="tobe-quiz-area"></div>
+
+    <div id="tobe-result" style="display:none;text-align:center;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;margin-top:1rem">
+      <div style="font-family:'Playfair Display',serif;font-size:56px;font-weight:900;color:var(--gold)" id="tobe-final-score">0</div>
+      <div style="font-size:14px;color:var(--muted);margin:.5rem 0 1rem" id="tobe-final-label">dari 10 soal benar</div>
+      <div style="font-size:15px;margin-bottom:1.5rem" id="tobe-final-msg"></div>
+      <button class="btn-primary" onclick="generateToBeQuiz()">🔄 Coba 10 Soal Baru</button>
+    </div>
+
+  </div>
+
+  <!-- S1 LATIHAN -->
+  <div id="s1-latihan" class="inner-section">
+    <div class="score-row">
+      <div class="score-card"><div class="score-num" id="s1-score">0</div><div class="score-lbl">Benar</div></div>
+      <div class="score-card"><div class="score-num" id="s1-total">0</div><div class="score-lbl">Total Soal</div></div>
+      <div class="score-card"><div class="score-num" id="s1-pct">0%</div><div class="score-lbl">Nilai</div></div>
+    </div>
+    <div id="s1-quiz-area"></div>
+    <div class="quiz-result" id="s1-result">
+      <div class="result-score" id="s1-final-score">0</div>
+      <div class="result-label" id="s1-final-total">dari 0 soal benar</div>
+      <div class="result-msg" id="s1-final-msg"></div>
+      <button class="btn-primary" onclick="initQuiz('s1')">Ulangi Latihan</button>
+    </div>
+    <div id="s1-quiz-actions" style="display:flex;gap:10px;margin-top:1rem;flex-wrap:wrap"></div>
+  </div>
+</div><!-- end stage1 -->
+
+<!-- STAGE 2 -->
+<div id="page-stage2" class="page">
+  <button class="back-btn" onclick="showPage('home')">← Kembali</button>
+  <div class="sec-header">
+    <div class="sec-icon coral">📗</div>
+    <div>
+      <h2>Tahap 2 — Elementary A1–A2</h2>
+      <p>Tenses, question words, prepositions, adjectives, dan percakapan sehari-hari</p>
+    </div>
+  </div>
+
+  <div class="inner-tabs">
+    <button class="inner-tab active" onclick="showInner('s2','materi')">Materi</button>
+    <button class="inner-tab" onclick="showInner('s2','latihan')">✨ Latihan AI</button>
+  </div>
+
+  <!-- S2 MATERI -->
+  <div id="s2-materi" class="inner-section active">
+
+    <!-- Present Tense -->
+    <div class="materi-detail">
+      <h3>⏰ 1. Simple Present Tense</h3>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:1rem">Digunakan untuk kebiasaan, fakta, dan rutinitas sehari-hari.</p>
+      <div class="grammar-box">
+        <h4>Rumus kalimat positif</h4>
+        <span class="example-line">I/You/We/They + <em>V1</em> | I <em>eat</em> rice every day.</span>
+        <span class="example-line">He/She/It + <em>V1+s/es</em> | She <em>drinks</em> coffee.</span>
+      </div>
+      <div class="grammar-box coral" style="margin-top:.75rem">
+        <h4>Rumus negatif</h4>
+        <span class="example-line">I/You/We/They + <em>don't</em> + V1 | I <em>don't</em> like fish.</span>
+        <span class="example-line">He/She/It + <em>doesn't</em> + V1 | He <em>doesn't</em> play football.</span>
+      </div>
+      <div class="grammar-box" style="margin-top:.75rem">
+        <h4>Rumus kalimat tanya</h4>
+        <span class="example-line"><em>Do</em> you like music? — Yes, I do. / No, I don't.</span>
+        <span class="example-line"><em>Does</em> she work here? — Yes, she does. / No, she doesn't.</span>
+      </div>
+      <div style="margin-top:.75rem">
+        <p style="font-size:13px;font-weight:600;margin-bottom:.5rem">Kata kerja dasar (V1)</p>
+        <div class="vocab-grid">
+          <div class="vocab-item"><div class="vocab-en">Eat</div><div class="vocab-id">Makan</div></div>
+          <div class="vocab-item"><div class="vocab-en">Drink</div><div class="vocab-id">Minum</div></div>
+          <div class="vocab-item"><div class="vocab-en">Sleep</div><div class="vocab-id">Tidur</div></div>
+          <div class="vocab-item"><div class="vocab-en">Work</div><div class="vocab-id">Bekerja</div></div>
+          <div class="vocab-item"><div class="vocab-en">Study</div><div class="vocab-id">Belajar</div></div>
+          <div class="vocab-item"><div class="vocab-en">Play</div><div class="vocab-id">Bermain</div></div>
+          <div class="vocab-item"><div class="vocab-en">Go</div><div class="vocab-id">Pergi</div></div>
+          <div class="vocab-item"><div class="vocab-en">Come</div><div class="vocab-id">Datang</div></div>
+          <div class="vocab-item"><div class="vocab-en">Like</div><div class="vocab-id">Suka</div></div>
+          <div class="vocab-item"><div class="vocab-en">Want</div><div class="vocab-id">Mau/Ingin</div></div>
+          <div class="vocab-item"><div class="vocab-en">Know</div><div class="vocab-id">Tahu</div></div>
+          <div class="vocab-item"><div class="vocab-en">See</div><div class="vocab-id">Melihat</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Present Continuous -->
+    <div class="materi-detail">
+      <h3>🔄 2. Present Continuous Tense</h3>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:1rem">Digunakan untuk aktivitas yang sedang terjadi saat ini.</p>
+      <div class="grammar-box">
+        <h4>Rumus: Subject + am/is/are + V-ing</h4>
+        <span class="example-line">I <em>am eating</em> now. (Saya sedang makan sekarang)</span>
+        <span class="example-line">She <em>is studying</em> English. (Dia sedang belajar Inggris)</span>
+        <span class="example-line">They <em>are playing</em> football. (Mereka sedang bermain bola)</span>
+      </div>
+      <div class="grammar-box coral" style="margin-top:.75rem">
+        <h4>Cara menambahkan -ing</h4>
+        <ul>
+          <li>Biasa: eat → eat<em>ing</em>, sleep → sleep<em>ing</em></li>
+          <li>Akhiran e: write → writ<em>ing</em>, make → mak<em>ing</em></li>
+          <li>Konsonan ganda: sit → sit<em>ting</em>, run → run<em>ning</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Past Tense -->
+    <div class="materi-detail">
+      <h3>⏪ 3. Simple Past Tense</h3>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:1rem">Digunakan untuk kejadian yang sudah terjadi di masa lalu.</p>
+      <div class="grammar-box">
+        <h4>Regular Verbs — tambahkan -ed</h4>
+        <span class="example-line">play → <em>played</em> | I played football yesterday.</span>
+        <span class="example-line">walk → <em>walked</em> | She walked to school.</span>
+        <span class="example-line">study → <em>studied</em> | He studied last night.</span>
+      </div>
+      <div class="grammar-box coral" style="margin-top:.75rem">
+        <h4>Irregular Verbs — bentuk berubah</h4>
+        <div class="vocab-grid" style="margin-top:.5rem">
+          <div class="vocab-item"><div class="vocab-en">go → went</div><div class="vocab-id">pergi</div></div>
+          <div class="vocab-item"><div class="vocab-en">eat → ate</div><div class="vocab-id">makan</div></div>
+          <div class="vocab-item"><div class="vocab-en">see → saw</div><div class="vocab-id">melihat</div></div>
+          <div class="vocab-item"><div class="vocab-en">come → came</div><div class="vocab-id">datang</div></div>
+          <div class="vocab-item"><div class="vocab-en">buy → bought</div><div class="vocab-id">membeli</div></div>
+          <div class="vocab-item"><div class="vocab-en">have → had</div><div class="vocab-id">punya</div></div>
+          <div class="vocab-item"><div class="vocab-en">make → made</div><div class="vocab-id">membuat</div></div>
+          <div class="vocab-item"><div class="vocab-en">write → wrote</div><div class="vocab-id">menulis</div></div>
+        </div>
+      </div>
+      <div class="grammar-box" style="margin-top:.75rem">
+        <h4>Kalimat negatif & tanya</h4>
+        <span class="example-line">I <em>didn't</em> go to school yesterday.</span>
+        <span class="example-line"><em>Did</em> you eat breakfast? — Yes, I did.</span>
+      </div>
+    </div>
+
+    <!-- Question Words -->
+    <div class="materi-detail">
+      <h3>❓ 4. Question Words (Kata Tanya)</h3>
+      <div class="vocab-grid">
+        <div class="vocab-item"><div class="vocab-en">What?</div><div class="vocab-id">Apa?</div></div>
+        <div class="vocab-item"><div class="vocab-en">Where?</div><div class="vocab-id">Di mana?</div></div>
+        <div class="vocab-item"><div class="vocab-en">When?</div><div class="vocab-id">Kapan?</div></div>
+        <div class="vocab-item"><div class="vocab-en">Who?</div><div class="vocab-id">Siapa?</div></div>
+        <div class="vocab-item"><div class="vocab-en">Why?</div><div class="vocab-id">Mengapa?</div></div>
+        <div class="vocab-item"><div class="vocab-en">How?</div><div class="vocab-id">Bagaimana?</div></div>
+        <div class="vocab-item"><div class="vocab-en">How many?</div><div class="vocab-id">Berapa banyak?</div></div>
+        <div class="vocab-item"><div class="vocab-en">How much?</div><div class="vocab-id">Berapa harga?</div></div>
+        <div class="vocab-item"><div class="vocab-en">Which?</div><div class="vocab-id">Yang mana?</div></div>
+        <div class="vocab-item"><div class="vocab-en">Whose?</div><div class="vocab-id">Milik siapa?</div></div>
+      </div>
+      <div class="grammar-box" style="margin-top:1rem">
+        <h4>Contoh penggunaan</h4>
+        <span class="example-line"><em>What</em> is your name? — My name is Budi.</span>
+        <span class="example-line"><em>Where</em> do you live? — I live in Palembang.</span>
+        <span class="example-line"><em>When</em> does school start? — At 7 o'clock.</span>
+        <span class="example-line"><em>Why</em> are you late? — Because I missed the bus.</span>
+      </div>
+    </div>
+
+    <!-- Prepositions -->
+    <div class="materi-detail">
+      <h3>📍 5. Prepositions (Kata Depan)</h3>
+      <div class="vocab-grid">
+        <div class="vocab-item"><div class="vocab-en">in</div><div class="vocab-id">di dalam</div></div>
+        <div class="vocab-item"><div class="vocab-en">on</div><div class="vocab-id">di atas</div></div>
+        <div class="vocab-item"><div class="vocab-en">at</div><div class="vocab-id">di (tempat spesifik)</div></div>
+        <div class="vocab-item"><div class="vocab-en">under</div><div class="vocab-id">di bawah</div></div>
+        <div class="vocab-item"><div class="vocab-en">behind</div><div class="vocab-id">di belakang</div></div>
+        <div class="vocab-item"><div class="vocab-en">in front of</div><div class="vocab-id">di depan</div></div>
+        <div class="vocab-item"><div class="vocab-en">next to</div><div class="vocab-id">di samping</div></div>
+        <div class="vocab-item"><div class="vocab-en">between</div><div class="vocab-id">di antara</div></div>
+        <div class="vocab-item"><div class="vocab-en">near</div><div class="vocab-id">dekat</div></div>
+        <div class="vocab-item"><div class="vocab-en">far from</div><div class="vocab-id">jauh dari</div></div>
+      </div>
+      <div class="grammar-box" style="margin-top:1rem">
+        <h4>Contoh kalimat</h4>
+        <span class="example-line">The cat is <em>on</em> the table.</span>
+        <span class="example-line">I live <em>in</em> Palembang.</span>
+        <span class="example-line">She is standing <em>next to</em> the door.</span>
+        <span class="example-line">Meet me <em>at</em> the coffee shop.</span>
+      </div>
+    </div>
+
+    <!-- Adjectives -->
+    <div class="materi-detail">
+      <h3>✨ 6. Adjectives & Daily Conversation</h3>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:.75rem">Kata sifat untuk mendeskripsikan orang, tempat, dan benda.</p>
+      <div class="vocab-grid">
+        <div class="vocab-item"><div class="vocab-en">Big / Small</div><div class="vocab-id">Besar / Kecil</div></div>
+        <div class="vocab-item"><div class="vocab-en">Tall / Short</div><div class="vocab-id">Tinggi / Pendek</div></div>
+        <div class="vocab-item"><div class="vocab-en">Fast / Slow</div><div class="vocab-id">Cepat / Lambat</div></div>
+        <div class="vocab-item"><div class="vocab-en">Hot / Cold</div><div class="vocab-id">Panas / Dingin</div></div>
+        <div class="vocab-item"><div class="vocab-en">Happy / Sad</div><div class="vocab-id">Senang / Sedih</div></div>
+        <div class="vocab-item"><div class="vocab-en">Good / Bad</div><div class="vocab-id">Baik / Buruk</div></div>
+        <div class="vocab-item"><div class="vocab-en">New / Old</div><div class="vocab-id">Baru / Lama</div></div>
+        <div class="vocab-item"><div class="vocab-en">Cheap / Expensive</div><div class="vocab-id">Murah / Mahal</div></div>
+        <div class="vocab-item"><div class="vocab-en">Easy / Difficult</div><div class="vocab-id">Mudah / Sulit</div></div>
+        <div class="vocab-item"><div class="vocab-en">Beautiful / Ugly</div><div class="vocab-id">Cantik / Jelek</div></div>
+      </div>
+      <div class="grammar-box" style="margin-top:1rem">
+        <h4>Dialog sehari-hari — di warung makan</h4>
+        <span class="example-line">A: <em>Excuse me</em>, can I order, please?</span>
+        <span class="example-line">B: Of course! <em>What would you like?</em></span>
+        <span class="example-line">A: I'd like rice and chicken, please.</span>
+        <span class="example-line">B: <em>How much</em> rice? One portion?</span>
+        <span class="example-line">A: Yes, one portion. <em>How much is it?</em></span>
+        <span class="example-line">B: It's fifteen thousand rupiah.</span>
+      </div>
+    </div>
+
+  </div><!-- end s2-materi -->
+
+  <!-- S2 LATIHAN -->
+  <div id="s2-latihan" class="inner-section">
+
+    <!-- BANK SOAL MANAGER -->
+    <div id="s2-bank-manager" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.25rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:1rem">
+        <div>
+          <p style="font-size:15px;font-weight:600;color:var(--ink)">Bank Soal</p>
+          <p style="font-size:12px;color:var(--muted)">Import file JSON per topik — tersimpan otomatis di browser</p>
+        </div>
+        <button class="btn-secondary" style="font-size:12px;padding:6px 14px" onclick="clearAllBanks()">🗑 Hapus Semua</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px" id="bank-status-grid">
+
+        <div class="bank-slot" id="slot-simple_present">
+          <div class="bank-slot-top">
+            <span class="bank-icon">⏰</span>
+            <div style="flex:1">
+              <div class="bank-name">Simple Present Tense</div>
+              <div class="bank-count" id="count-simple_present">Belum diimport</div>
+            </div>
+            <div class="bank-actions">
+              <label class="import-btn" title="Import JSON">
+                ＋ Import
+                <input type="file" accept=".json" onchange="importBank('simple_present', this)" style="display:none">
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="bank-slot" id="slot-present_continuous">
+          <div class="bank-slot-top">
+            <span class="bank-icon">🔄</span>
+            <div style="flex:1">
+              <div class="bank-name">Present Continuous</div>
+              <div class="bank-count" id="count-present_continuous">Belum diimport</div>
+            </div>
+            <div class="bank-actions">
+              <label class="import-btn" title="Import JSON">
+                ＋ Import
+                <input type="file" accept=".json" onchange="importBank('present_continuous', this)" style="display:none">
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="bank-slot" id="slot-simple_past">
+          <div class="bank-slot-top">
+            <span class="bank-icon">⏪</span>
+            <div style="flex:1">
+              <div class="bank-name">Simple Past Tense</div>
+              <div class="bank-count" id="count-simple_past">Belum diimport</div>
+            </div>
+            <div class="bank-actions">
+              <label class="import-btn" title="Import JSON">
+                ＋ Import
+                <input type="file" accept=".json" onchange="importBank('simple_past', this)" style="display:none">
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="bank-slot" id="slot-question_words">
+          <div class="bank-slot-top">
+            <span class="bank-icon">❓</span>
+            <div style="flex:1">
+              <div class="bank-name">Question Words</div>
+              <div class="bank-count" id="count-question_words">Belum diimport</div>
+            </div>
+            <div class="bank-actions">
+              <label class="import-btn" title="Import JSON">
+                ＋ Import
+                <input type="file" accept=".json" onchange="importBank('question_words', this)" style="display:none">
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="bank-slot" id="slot-prepositions">
+          <div class="bank-slot-top">
+            <span class="bank-icon">📍</span>
+            <div style="flex:1">
+              <div class="bank-name">Prepositions</div>
+              <div class="bank-count" id="count-prepositions">Belum diimport</div>
+            </div>
+            <div class="bank-actions">
+              <label class="import-btn" title="Import JSON">
+                ＋ Import
+                <input type="file" accept=".json" onchange="importBank('prepositions', this)" style="display:none">
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="bank-slot" id="slot-adjectives">
+          <div class="bank-slot-top">
+            <span class="bank-icon">✨</span>
+            <div style="flex:1">
+              <div class="bank-name">Adjectives</div>
+              <div class="bank-count" id="count-adjectives">Belum diimport</div>
+            </div>
+            <div class="bank-actions">
+              <label class="import-btn" title="Import JSON">
+                ＋ Import
+                <input type="file" accept=".json" onchange="importBank('adjectives', this)" style="display:none">
+              </label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TOPIC PICKER -->
+    <div id="s2-topic-picker" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.25rem">
+      <p style="font-size:14px;font-weight:600;margin-bottom:.75rem;color:var(--ink)">Pilih Topik Latihan</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px">
+        <button class="topic-btn" id="tbtn-simple_present" onclick="startS2Quiz('simple_present')">⏰ Simple Present Tense</button>
+        <button class="topic-btn" id="tbtn-present_continuous" onclick="startS2Quiz('present_continuous')">🔄 Present Continuous</button>
+        <button class="topic-btn" id="tbtn-simple_past" onclick="startS2Quiz('simple_past')">⏪ Simple Past Tense</button>
+        <button class="topic-btn" id="tbtn-question_words" onclick="startS2Quiz('question_words')">❓ Question Words</button>
+        <button class="topic-btn" id="tbtn-prepositions" onclick="startS2Quiz('prepositions')">📍 Prepositions</button>
+        <button class="topic-btn" id="tbtn-adjectives" onclick="startS2Quiz('adjectives')">✨ Adjectives</button>
+      </div>
+    </div>
+
+    <!-- QUIZ AREA -->
+    <div id="s2-ai-quiz-wrap" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:1rem">
+        <div>
+          <span id="s2-active-topic-label" style="font-size:15px;font-weight:600;color:var(--ink)"></span>
+          <p style="font-size:12px;color:var(--muted);margin-top:2px">10 soal pilihan ganda — jawab semua untuk lihat hasil</p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn-secondary" style="font-size:12px;padding:6px 14px" onclick="document.getElementById('s2-ai-quiz-wrap').style.display='none'">← Ganti Topik</button>
+          <button class="btn-primary" style="font-size:12px;padding:6px 14px" onclick="startS2Quiz(currentS2Topic)">🔄 Soal Baru</button>
+        </div>
+      </div>
+
+      <div class="score-row">
+        <div class="score-card"><div class="score-num" id="s2-ai-score">0</div><div class="score-lbl">Benar</div></div>
+        <div class="score-card"><div class="score-num" id="s2-ai-answered">0</div><div class="score-lbl">Dijawab</div></div>
+        <div class="score-card"><div class="score-num" id="s2-ai-pct">0%</div><div class="score-lbl">Nilai</div></div>
+      </div>
+
+      <div id="s2-ai-loading" style="display:none;text-align:center;padding:2.5rem 1rem">
+        <div class="loading-dots"><span></span><span></span><span></span></div>
+        <p style="font-size:14px;color:var(--muted);margin-top:1rem" id="s2-loading-msg">Memuat soal...</p>
+      </div>
+
+      <div id="s2-ai-quiz-area"></div>
+
+      <div id="s2-ai-result" style="display:none;text-align:center;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;margin-top:1rem">
+        <div style="font-family:'Playfair Display',serif;font-size:56px;font-weight:900;color:var(--gold)" id="s2-ai-final-score">0</div>
+        <div style="font-size:14px;color:var(--muted);margin:.5rem 0 1rem" id="s2-ai-final-label">dari 10 soal benar</div>
+        <div style="font-size:15px;margin-bottom:1.5rem" id="s2-ai-final-msg"></div>
+        <button class="btn-primary" onclick="startS2Quiz(currentS2Topic)">🔄 Coba 10 Soal Baru</button>
+      </div>
+    </div>
+
+  </div>
+</div><!-- end stage2 -->
+
+</main>
+
+<script>
+const quizData = {
+  s1: [
+    {type:'mc', badge:'vocab', q:'Bagaimana cara mengucapkan huruf "G" dalam bahasa Inggris?', opts:['Ge','Ji','Gi','Gu'], ans:1, exp:'"G" dibaca "ji" seperti dalam kata "jeans".'},
+    {type:'mc', badge:'grammar', q:'Pilih kata yang tepat: "I ___ a student."', opts:['is','are','am','be'], ans:2, exp:'Untuk subjek "I" selalu gunakan "am".'},
+    {type:'mc', badge:'vocab', q:'Apa bahasa Inggris dari "Selamat pagi"?', opts:['Good night','Good evening','Good afternoon','Good morning'], ans:3, exp:'"Good morning" digunakan pada pagi hari.'},
+    {type:'mc', badge:'vocab', q:'Warna "hijau" dalam bahasa Inggris adalah?', opts:['Blue','Red','Green','Yellow'], ans:2, exp:'"Green" = hijau.'},
+    {type:'mc', badge:'grammar', q:'"She ___ happy." Pilih kata yang benar.', opts:['am','are','is','be'], ans:2, exp:'Untuk she/he/it gunakan "is".'},
+    {type:'mc', badge:'vocab', q:'Angka "15" dalam bahasa Inggris adalah?', opts:['Thirteen','Fourteen','Fifteen','Sixteen'], ans:2, exp:'15 = Fifteen.'},
+    {type:'mc', badge:'grammar', q:'"They ___ my friends." Pilih yang benar.', opts:['is','am','be','are'], ans:3, exp:'Untuk they/we/you gunakan "are".'},
+    {type:'mc', badge:'vocab', q:'Kata apa yang berarti "Terima kasih"?', opts:['Sorry','Please','Thank you','Excuse me'], ans:2, exp:'"Thank you" artinya terima kasih.'},
+    {type:'fill', badge:'grammar', before:'', after:'name is Rina.', ans:'My', hint:'kata ganti kepemilikan untuk "saya"'},
+    {type:'fill', badge:'vocab', before:'The sky is', after:'.', ans:'blue', hint:'warna langit'},
+    {type:'fill', badge:'grammar', before:'Are you a student? Yes, I', after:'.', ans:'am', hint:'jawaban singkat untuk "I"'},
+    {type:'mc', badge:'vocab', q:'Apa arti "Nice to meet you"?', opts:['Bagaimana kabarmu?','Sampai jumpa','Senang bertemu kamu','Selamat datang'], ans:2, exp:'"Nice to meet you" = senang bertemu kamu.'},
+  ]
+};
+
+let quizState = {};
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  const tabs = document.querySelectorAll('.nav-tab');
+  const map = {home:0, stage1:1, stage2:2};
+  if(map[id]!==undefined) tabs[map[id]].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showInner(stage, section) {
+  const prefix = stage+'-';
+  document.querySelectorAll('[id^="'+prefix+'"]').forEach(el=>{
+    if(el.classList.contains('inner-section')) el.classList.remove('active');
+  });
+  document.getElementById(prefix+section).classList.add('active');
+  const stageEl = document.getElementById('page-stage'+(stage==='s1'?'1':'2'));
+  stageEl.querySelectorAll('.inner-tab').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  if(section==='latihan' && stage==='s1') initQuiz(stage);
+  if(stage==='s1' && section==='tobe' && document.getElementById('tobe-quiz-area').innerHTML==='') generateToBeQuiz();
+}
+
+function initQuiz(stage) {
+  const questions = [...quizData[stage]].sort(()=>Math.random()-.5);
+  quizState[stage] = { questions, score:0, answered:0, total: questions.length };
+  document.getElementById(stage+'-score').textContent='0';
+  document.getElementById(stage+'-total').textContent='0';
+  document.getElementById(stage+'-pct').textContent='0%';
+  document.getElementById(stage+'-result').classList.remove('show');
+  document.getElementById(stage+'-quiz-actions').innerHTML='';
+  renderQuiz(stage);
+}
+
+function renderQuiz(stage) {
+  const area = document.getElementById(stage+'-quiz-area');
+  const state = quizState[stage];
+  area.innerHTML='';
+  state.questions.forEach((q,i)=>{
+    const div = document.createElement('div');
+    div.className='q-card'; div.id=stage+'-q-'+i;
+    const badgeClass = q.badge||'vocab';
+    if(q.type==='mc'){
+      div.innerHTML=`<span class="q-badge ${badgeClass}">${badgeClass}</span>
+        <div class="q-text">${q.q}</div>
+        <div class="q-opts">${q.opts.map((o,oi)=>`<button class="q-opt" onclick="pickMC('${stage}',${i},${oi})">${o}</button>`).join('')}</div>
+        <div class="q-feedback" id="${stage}-fb-${i}"></div>`;
+    } else {
+      div.innerHTML=`<span class="q-badge ${badgeClass}">${badgeClass}</span>
+        <div class="q-text" style="font-size:16px;margin-bottom:.75rem">Isi bagian yang kosong:</div>
+        <div class="q-fill-row">
+          <span style="font-size:15px">${q.before}</span>
+          <input class="q-fill-inp" id="${stage}-fi-${i}" placeholder="..." autocomplete="off" onkeydown="if(event.key==='Enter')checkFillQ('${stage}',${i})">
+          <span style="font-size:15px">${q.after}</span>
+        </div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:.5rem">Petunjuk: ${q.hint}</div>
+        <button class="btn-secondary" style="font-size:13px;padding:7px 16px" onclick="checkFillQ('${stage}',${i})">Cek jawaban</button>
+        <div class="q-feedback" id="${stage}-fb-${i}"></div>`;
+    }
+    area.appendChild(div);
+  });
+}
+
+function pickMC(stage, qi, oi) {
+  const state = quizState[stage];
+  const q = state.questions[qi];
+  if(q._done) return;
+  q._done=true;
+  const card = document.getElementById(stage+'-q-'+qi);
+  card.querySelectorAll('.q-opt').forEach(b=>b.disabled=true);
+  card.querySelectorAll('.q-opt')[oi].classList.add(oi===q.ans?'correct':'wrong');
+  if(oi!==q.ans) card.querySelectorAll('.q-opt')[q.ans].classList.add('reveal');
+  const fb = document.getElementById(stage+'-fb-'+qi);
+  fb.className='q-feedback show '+(oi===q.ans?'ok':'no');
+  fb.textContent=(oi===q.ans?'✓ Benar! ':'✗ Salah. ')+q.exp;
+  if(oi===q.ans) state.score++;
+  state.answered++;
+  updateScoreBar(stage, state);
+  if(state.answered===state.total) setTimeout(()=>showResult(stage,state),800);
+}
+
+function checkFillQ(stage, qi) {
+  const state = quizState[stage];
+  const q = state.questions[qi];
+  if(q._done) return;
+  const inp = document.getElementById(stage+'-fi-'+qi);
+  const val = inp.value.trim().toLowerCase();
+  const correct = val===q.ans.toLowerCase();
+  q._done=true;
+  inp.classList.add(correct?'ok':'no');
+  inp.disabled=true;
+  const fb = document.getElementById(stage+'-fb-'+qi);
+  fb.className='q-feedback show '+(correct?'ok':'no');
+  fb.textContent=correct?'✓ Benar!':'✗ Jawaban yang tepat: "'+q.ans+'"';
+  if(correct) state.score++;
+  state.answered++;
+  updateScoreBar(stage, state);
+  if(state.answered===state.total) setTimeout(()=>showResult(stage,state),800);
+}
+
+function updateScoreBar(stage, state) {
+  document.getElementById(stage+'-score').textContent=state.score;
+  document.getElementById(stage+'-total').textContent=state.answered;
+  const pct = Math.round((state.score/state.total)*100);
+  document.getElementById(stage+'-pct').textContent=pct+'%';
+}
+
+function showResult(stage, state) {
+  const pct = Math.round((state.score/state.total)*100);
+  document.getElementById(stage+'-final-score').textContent=state.score;
+  document.getElementById(stage+'-final-total').textContent='dari '+state.total+' soal benar';
+  let msg='';
+  if(pct>=90) msg='Luar biasa! Kamu sudah sangat menguasai materi ini.';
+  else if(pct>=70) msg='Bagus! Masih ada beberapa yang perlu diulang.';
+  else if(pct>=50) msg='Cukup baik. Pelajari kembali materi dan coba lagi!';
+  else msg='Jangan menyerah! Baca ulang materi dan coba lagi ya.';
+  document.getElementById(stage+'-final-msg').textContent=msg;
+  document.getElementById(stage+'-result').classList.add('show');
+}
+
+document.querySelectorAll('.vocab-item').forEach(v=>{ v.title='Klik untuk menyorot'; });
+
+// ===================== TO BE GENERATOR (AI) =====================
+const toBeTemplates = [
+  { tpl: (s,adj)=>`${s} ___ ${adj}.`, subjects:['I'], ans:'am', type:'pos', exp:'Untuk "I" gunakan "am".' },
+  { tpl: (s,adj)=>`${s} ___ not ${adj}.`, subjects:['I'], ans:'am', type:'neg', exp:'Kalimat negatif "I" → am not.' },
+  { tpl: (s,adj)=>`${s} ___ ${adj}.`, subjects:['He','She','It','Budi','Ani','The cat','The dog','My brother','My sister'], ans:'is', type:'pos', exp:'Untuk he/she/it/nama tunggal gunakan "is".' },
+  { tpl: (s,adj)=>`${s} ___ not ${adj}.`, subjects:['He','She','It','Budi','Ani','The cat'], ans:'is', type:'neg', exp:'Kalimat negatif he/she/it → is not.' },
+  { tpl: (s,adj)=>`${s} ___ ${adj}.`, subjects:['You','We','They','My friends','The children','The students'], ans:'are', type:'pos', exp:'Untuk you/we/they gunakan "are".' },
+  { tpl: (s,adj)=>`${s} ___ not ${adj}.`, subjects:['You','We','They','My friends'], ans:'are', type:'neg', exp:'Kalimat negatif you/we/they → are not.' },
+  { tpl: (s,adj)=>`___ ${s} ${adj}?`, subjects:['I'], ans:'Am', type:'q', exp:'Kalimat tanya untuk "I" → Am I...?' },
+  { tpl: (s,adj)=>`___ ${s} ${adj}?`, subjects:['he','she','it','Budi','Ani'], ans:'Is', type:'q', exp:'Kalimat tanya he/she/it → Is...?' },
+  { tpl: (s,adj)=>`___ ${s} ${adj}?`, subjects:['you','we','they','your friends'], ans:'Are', type:'q', exp:'Kalimat tanya you/we/they → Are...?' },
+  { tpl: (s,adj)=>`Is she ${adj}? Yes, she ___.`, subjects:[''], ans:'is', type:'short', exp:'Jawaban singkat positif she → Yes, she is.' },
+  { tpl: (s,adj)=>`Are they ${adj}? No, they ___ not.`, subjects:[''], ans:'are', type:'short', exp:'Jawaban singkat negatif they → No, they are not.' },
+  { tpl: (s,adj)=>`Am I ${adj}? Yes, you ___.`, subjects:[''], ans:'are', type:'short', exp:'Jawaban untuk "Am I?" → Yes, you are.' },
+  { tpl: (s,adj)=>`He ___ (is not) ${adj}.`, subjects:[''], ans:"isn't", type:'contract', exp:'"is not" disingkat "isn\'t".' },
+  { tpl: (s,adj)=>`They ___ (are not) ${adj}.`, subjects:[''], ans:"aren't", type:'contract', exp:'"are not" disingkat "aren\'t".' },
+  { tpl: (s,adj)=>`Saya ___ seorang pelajar. (I ___ a student.)`, subjects:[''], ans:'am', type:'id', exp:'"Saya adalah" → I am.' },
+  { tpl: (s,adj)=>`Dia (perempuan) ___ cantik. (She ___ beautiful.)`, subjects:[''], ans:'is', type:'id', exp:'Dia perempuan tunggal → She is.' },
+  { tpl: (s,adj)=>`Mereka ___ teman-temanku. (They ___ my friends.)`, subjects:[''], ans:'are', type:'id', exp:'Mereka → They are.' },
+  { tpl: (s,adj)=>`Kami ___ lapar. (We ___ hungry.)`, subjects:[''], ans:'are', type:'id', exp:'Kami → We are.' },
+  { tpl: (s,adj)=>`Kamu ___ hebat! (You ___ great!)`, subjects:[''], ans:'are', type:'id', exp:'Kamu → You are.' },
+];
+const toBeAdj = ['happy','tired','hungry','tall','short','smart','kind','busy','ready','late','early','sick','strong','young','old','new','big','small','fast','slow','here','right','wrong','free'];
+const toBeProfession = ['a student','a teacher','a doctor','a nurse','a farmer','a chef','a singer','a writer','an engineer','a pilot'];
+
+let toBeRound = 0;
+let toBeState = { score:0, answered:0, total:10, done:false };
+
+function generateToBeQuiz() {
+  toBeRound++;
+  toBeState = { score:0, answered:0, total:10, done:false };
+  document.getElementById('tobe-score').textContent='0';
+  document.getElementById('tobe-answered').textContent='0';
+  document.getElementById('tobe-pct').textContent='0%';
+  document.getElementById('tobe-round-label').textContent='Ronde '+toBeRound;
+  document.getElementById('tobe-result').style.display='none';
+  const pool = [...toBeTemplates].sort(()=>Math.random()-.5);
+  const selected = pool.slice(0, 10);
+  const area = document.getElementById('tobe-quiz-area');
+  area.innerHTML='';
+  selected.forEach((tmpl, i) => {
+    const subj = tmpl.subjects.length > 0 && tmpl.subjects[0] !== ''
+      ? tmpl.subjects[Math.floor(Math.random()*tmpl.subjects.length)] : '';
+    const adj = Math.random() > 0.5
+      ? toBeProfession[Math.floor(Math.random()*toBeProfession.length)]
+      : toBeAdj[Math.floor(Math.random()*toBeAdj.length)];
+    const sentence = tmpl.tpl(subj, adj);
+    const ans = tmpl.ans; const exp = tmpl.exp;
+    const card = document.createElement('div');
+    card.className='q-card tobe-card'; card.id='tobe-q-'+i;
+    const parts = sentence.split('___');
+    let html=`<div style="display:flex;align-items:center;gap:6px;margin-bottom:.75rem">
+      <span style="background:var(--gold-light);color:var(--gold);font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px;letter-spacing:1px">TO BE</span>
+      <span style="font-size:11px;color:var(--muted)">Soal ${i+1} dari 10</span></div>
+    <div style="font-size:16px;font-weight:500;color:var(--ink);margin-bottom:1rem;line-height:1.8;font-family:'DM Mono',monospace">`;
+    parts.forEach((part,pi)=>{
+      html+=`<span>${part}</span>`;
+      if(pi<parts.length-1) html+=`<input class="tobe-inp" id="tobe-inp-${i}" data-ans="${ans}" data-exp="${exp.replace(/"/g,'&quot;')}" data-qi="${i}" placeholder="___" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')checkToBe(${i})">`;
+    });
+    html+=`</div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <button class="btn-secondary" style="font-size:12px;padding:5px 14px" onclick="checkToBe(${i})">Cek ✓</button>
+      <button class="btn-secondary" style="font-size:12px;padding:5px 14px" onclick="showHintToBe(${i},'${ans}')">Petunjuk 💡</button></div>
+    <div id="tobe-fb-${i}" class="q-feedback"></div>`;
+    card.innerHTML=html; area.appendChild(card);
+  });
+}
+
+function checkToBe(qi) {
+  const inp=document.getElementById('tobe-inp-'+qi);
+  if(!inp||inp.disabled) return;
+  const val=inp.value.trim().toLowerCase();
+  const ans=inp.dataset.ans.toLowerCase();
+  const correct=val===ans||val===ans.replace(/'/g,"'");
+  inp.disabled=true;
+  inp.style.borderColor=correct?'var(--sage)':'var(--coral)';
+  inp.style.background=correct?'var(--sage-light)':'var(--coral-light)';
+  inp.style.color=correct?'var(--sage)':'var(--coral)';
+  const fb=document.getElementById('tobe-fb-'+qi);
+  fb.className='q-feedback show '+(correct?'ok':'no');
+  fb.innerHTML=correct?`✓ Benar! ${inp.dataset.exp}`:`✗ Jawaban tepat: <strong>"${inp.dataset.ans}"</strong>. ${inp.dataset.exp}`;
+  document.getElementById('tobe-q-'+qi).querySelectorAll('button').forEach(b=>b.disabled=true);
+  if(correct) toBeState.score++;
+  toBeState.answered++;
+  document.getElementById('tobe-score').textContent=toBeState.score;
+  document.getElementById('tobe-answered').textContent=toBeState.answered;
+  document.getElementById('tobe-pct').textContent=Math.round((toBeState.score/toBeState.answered)*100)+'%';
+  if(toBeState.answered===toBeState.total) setTimeout(showToBeResult,600);
+}
+
+function showHintToBe(qi,ans) {
+  const fb=document.getElementById('tobe-fb-'+qi);
+  fb.className='q-feedback show';
+  fb.style.background='var(--gold-light)'; fb.style.color='var(--gold)';
+  fb.textContent='💡 Huruf pertama: "'+ans[0].toUpperCase()+'"  (panjang: '+ans.replace(/'/g,'').length+' huruf)';
+}
+
+function showToBeResult() {
+  const pct=Math.round((toBeState.score/toBeState.total)*100);
+  document.getElementById('tobe-final-score').textContent=toBeState.score;
+  document.getElementById('tobe-final-label').textContent='dari '+toBeState.total+' soal benar';
+  let msg='';
+  if(pct>=90) msg='🎉 Luar biasa! Kamu sudah menguasai To Be!';
+  else if(pct>=70) msg='👍 Bagus! Masih ada yang perlu dilatih.';
+  else if(pct>=50) msg='📖 Cukup! Baca kembali rumus To Be dan coba lagi.';
+  else msg='💪 Jangan menyerah! Pelajari kembali am/is/are.';
+  document.getElementById('tobe-final-msg').textContent=msg;
+  document.getElementById('tobe-result').style.display='block';
+}
+
+// ===================== STAGE 2 — IMPORT & LOCALSTORAGE =====================
+const topicLabels = {
+  simple_present:     '⏰ Simple Present Tense',
+  present_continuous: '🔄 Present Continuous',
+  simple_past:        '⏪ Simple Past Tense',
+  question_words:     '❓ Question Words',
+  prepositions:       '📍 Prepositions',
+  adjectives:         '✨ Adjectives'
+};
+
+const LS_PREFIX = 'englearn_bank_';
+
+// Load a bank from localStorage
+function loadBank(topic) {
+  try {
+    const raw = localStorage.getItem(LS_PREFIX + topic);
+    return raw ? JSON.parse(raw) : null;
+  } catch(e) { return null; }
+}
+
+// Save a bank to localStorage
+function saveBank(topic, questions) {
+  localStorage.setItem(LS_PREFIX + topic, JSON.stringify(questions));
+}
+
+// Remove a bank from localStorage
+function removeBank(topic) {
+  localStorage.removeItem(LS_PREFIX + topic);
+  refreshBankUI(topic);
+}
+
+// Clear all banks
+function clearAllBanks() {
+  if(!confirm('Hapus semua bank soal yang tersimpan?')) return;
+  Object.keys(topicLabels).forEach(t => localStorage.removeItem(LS_PREFIX + t));
+  Object.keys(topicLabels).forEach(t => refreshBankUI(t));
+}
+
+// Handle file import
+function importBank(topic, input) {
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      const questions = data.questions || data;
+      if(!Array.isArray(questions) || questions.length === 0) throw new Error('Format tidak valid');
+      // Validate basic structure
+      if(!questions[0].q || !questions[0].opts || questions[0].ans === undefined) throw new Error('Struktur JSON salah');
+      saveBank(topic, questions);
+      refreshBankUI(topic);
+      showToast(`✓ ${topicLabels[topic].split(' ').slice(1).join(' ')} — ${questions.length} soal berhasil diimport!`);
+    } catch(err) {
+      showToast('⚠️ Gagal membaca file: ' + err.message, true);
+    }
+    input.value = '';
+  };
+  reader.readAsText(file);
+}
+
+// Update UI for one bank slot
+function refreshBankUI(topic) {
+  const bank = loadBank(topic);
+  const slot  = document.getElementById('slot-' + topic);
+  const count = document.getElementById('count-' + topic);
+  const tbtn  = document.getElementById('tbtn-' + topic);
+  if(!slot) return;
+
+  if(bank && bank.length > 0) {
+    slot.classList.add('loaded');
+    count.textContent = bank.length + ' soal tersimpan';
+    // Add remove button if not already there
+    if(!slot.querySelector('.remove-btn')) {
+      const actions = slot.querySelector('.bank-actions');
+      const rb = document.createElement('button');
+      rb.className = 'remove-btn';
+      rb.title = 'Hapus bank soal ini';
+      rb.textContent = '✕';
+      rb.onclick = () => removeBank(topic);
+      actions.appendChild(rb);
+    }
+    if(tbtn) tbtn.classList.remove('topic-btn-disabled');
+  } else {
+    slot.classList.remove('loaded');
+    count.textContent = 'Belum diimport';
+    const rb = slot.querySelector('.remove-btn');
+    if(rb) rb.remove();
+    if(tbtn) tbtn.classList.add('topic-btn-disabled');
+  }
+}
+
+// Toast notification
+function showToast(msg, isError) {
+  let t = document.getElementById('englearn-toast');
+  if(!t) {
+    t = document.createElement('div');
+    t.id = 'englearn-toast';
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--cream);padding:10px 20px;border-radius:10px;font-size:13px;font-weight:500;z-index:9999;transition:transform .3s ease;white-space:nowrap;max-width:90vw;text-align:center';
+    document.body.appendChild(t);
+  }
+  t.style.background = isError ? 'var(--coral)' : 'var(--ink)';
+  t.textContent = msg;
+  t.style.transform = 'translateX(-50%) translateY(0)';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => { t.style.transform = 'translateX(-50%) translateY(80px)'; }, 3000);
+}
+
+// Init all bank slots on load
+function initBankUI() {
+  Object.keys(topicLabels).forEach(refreshBankUI);
+}
+
+// ---- QUIZ ----
+let currentS2Topic = '';
+let s2State = { score:0, answered:0, total:10 };
+
+function startS2Quiz(topic) {
+  const bank = loadBank(topic);
+  if(!bank || bank.length === 0) {
+    showToast('⚠️ Import file JSON untuk topik ini dulu!', true);
+    return;
+  }
+
+  currentS2Topic = topic;
+  s2State = { score:0, answered:0, total:10 };
+
+  document.getElementById('s2-active-topic-label').textContent = topicLabels[topic];
+  document.getElementById('s2-ai-score').textContent = '0';
+  document.getElementById('s2-ai-answered').textContent = '0';
+  document.getElementById('s2-ai-pct').textContent = '0%';
+  document.getElementById('s2-ai-result').style.display = 'none';
+  document.getElementById('s2-ai-quiz-area').innerHTML = '';
+  document.getElementById('s2-ai-quiz-wrap').style.display = 'block';
+  document.getElementById('s2-ai-loading').style.display = 'none';
+
+  document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active-topic'));
+  const tbtn = document.getElementById('tbtn-' + topic);
+  if(tbtn) tbtn.classList.add('active-topic');
+
+  // Pick 10 random from bank
+  const shuffled = [...bank].sort(() => Math.random() - 0.5);
+  const selected = shuffled.slice(0, 10);
+  s2State.total = selected.length;
+  renderS2Quiz(selected);
+}
+
+function renderS2Quiz(questions) {
+  const area = document.getElementById('s2-ai-quiz-area');
+  const labelShort = topicLabels[currentS2Topic].split(' ').slice(1).join(' ');
+  area.innerHTML = '';
+  questions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'q-card'; div.id = 's2q-' + i;
+    div.innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:.75rem">
+        <span style="background:var(--teal-light);color:var(--teal);font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px;letter-spacing:1px">${labelShort}</span>
+        <span style="font-size:11px;color:var(--muted)">Soal ${i+1} dari ${questions.length}</span>
+      </div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-opts">${q.opts.map((o,oi) => `<button class="q-opt" onclick="pickS2(${i},${oi},${q.ans})">${o}</button>`).join('')}</div>
+      <div class="q-feedback" id="s2fb-${i}"></div>`;
+    area.appendChild(div);
+    div._exp = q.exp || '';
+  });
+}
+
+function pickS2(qi, oi, ans) {
+  const card = document.getElementById('s2q-' + qi);
+  if(card.dataset.done) return;
+  card.dataset.done = '1';
+  const exp = card._exp;
+  card.querySelectorAll('.q-opt').forEach(b => b.disabled = true);
+  card.querySelectorAll('.q-opt')[oi].classList.add(oi === ans ? 'correct' : 'wrong');
+  if(oi !== ans) card.querySelectorAll('.q-opt')[ans].classList.add('reveal');
+  const fb = document.getElementById('s2fb-' + qi);
+  fb.className = 'q-feedback show ' + (oi === ans ? 'ok' : 'no');
+  fb.textContent = (oi === ans ? '✓ Benar! ' : '✗ Salah. ') + exp;
+  if(oi === ans) s2State.score++;
+  s2State.answered++;
+  document.getElementById('s2-ai-score').textContent = s2State.score;
+  document.getElementById('s2-ai-answered').textContent = s2State.answered;
+  document.getElementById('s2-ai-pct').textContent = Math.round((s2State.score / s2State.answered) * 100) + '%';
+  if(s2State.answered === s2State.total) setTimeout(showS2Result, 700);
+}
+
+function showS2Result() {
+  const pct = Math.round((s2State.score / s2State.total) * 100);
+  document.getElementById('s2-ai-final-score').textContent = s2State.score;
+  document.getElementById('s2-ai-final-label').textContent = 'dari ' + s2State.total + ' soal benar';
+  let msg = '';
+  if(pct >= 90) msg = '🎉 Luar biasa! Kamu sangat menguasai topik ini!';
+  else if(pct >= 70) msg = '👍 Bagus! Coba lagi untuk nilai lebih tinggi.';
+  else if(pct >= 50) msg = '📖 Cukup baik. Pelajari kembali materinya ya.';
+  else msg = '💪 Jangan menyerah! Baca ulang materi dan coba lagi.';
+  document.getElementById('s2-ai-final-msg').textContent = msg;
+  document.getElementById('s2-ai-result').style.display = 'block';
+}
+
+// Init on page load
+initBankUI();
+// ===================== END IMPORT & LOCALSTORAGE =====================
+</script>
+</body>
+</html>
