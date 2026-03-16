@@ -479,6 +479,55 @@ main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 .file-tag-remove:hover { background:var(--coral-light); color:var(--coral); }
 .topic-btn-disabled { opacity:.4; pointer-events:none; }
 
+/* Mode buttons */
+.mode-btn {
+  display:flex; align-items:center; gap:6px;
+  font-size:13px; font-weight:500; padding:6px 14px;
+  border-radius:20px; border:1.5px solid var(--border);
+  background:transparent; color:var(--muted);
+  cursor:pointer; font-family:'DM Sans',sans-serif;
+  transition:all .15s;
+}
+.mode-btn:hover { border-color:var(--gold); color:var(--ink); background:var(--gold-light); }
+.mode-btn-active { background:var(--ink); color:var(--cream); border-color:var(--ink); }
+.mode-btn-active:hover { background:#333; border-color:#333; color:var(--cream); }
+
+/* Fill mode card */
+.fill-sentence {
+  font-size:17px; font-weight:500; line-height:2.4;
+  color:var(--ink); margin-bottom:1rem;
+  display:flex; flex-wrap:wrap; align-items:center; gap:4px 6px;
+}
+.fill-word { display:inline-block; }
+.fill-blank {
+  display:inline-block; border:none; border-bottom:2.5px solid var(--gold);
+  background:var(--gold-light); border-radius:6px 6px 0 0;
+  padding:2px 10px; font-size:16px; font-weight:600;
+  font-family:'DM Mono',monospace; color:var(--ink);
+  min-width:80px; text-align:center; outline:none;
+  transition:all .15s; vertical-align:middle;
+}
+.fill-blank:focus { border-bottom-color:var(--teal); background:var(--teal-light); }
+.fill-blank.correct { border-bottom-color:var(--sage); background:var(--sage-light); color:var(--sage); }
+.fill-blank.wrong { border-bottom-color:var(--coral); background:var(--coral-light); color:var(--coral); }
+.fill-blank:disabled { cursor:default; }
+.fill-hint { font-size:12px; color:var(--muted); margin-bottom:.75rem; font-style:italic; }
+.fill-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:.25rem; }
+.check-word-btn {
+  font-size:12px; padding:5px 16px; border-radius:8px;
+  border:1px solid var(--border); background:transparent;
+  color:var(--muted); cursor:pointer; font-family:'DM Sans',sans-serif;
+  transition:all .15s;
+}
+.check-word-btn:hover { background:var(--teal-light); border-color:var(--teal); color:var(--teal); }
+.hint-word-btn {
+  font-size:12px; padding:5px 16px; border-radius:8px;
+  border:1px solid var(--border); background:transparent;
+  color:var(--muted); cursor:pointer; font-family:'DM Sans',sans-serif;
+  transition:all .15s;
+}
+.hint-word-btn:hover { background:var(--gold-light); border-color:var(--gold); color:var(--ink); }
+
 .topic-btn {
   padding: 12px 16px; border-radius: var(--radius);
   border: 1.5px solid var(--border);
@@ -1388,6 +1437,8 @@ main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
     <!-- QUIZ AREA -->
     <div id="s2-ai-quiz-wrap" style="display:none">
+
+      <!-- Header -->
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:1rem">
         <div>
           <span id="s2-active-topic-label" style="font-size:15px;font-weight:600;color:var(--ink)"></span>
@@ -1395,20 +1446,43 @@ main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn-secondary" style="font-size:12px;padding:6px 14px" onclick="document.getElementById('s2-ai-quiz-wrap').style.display='none'">← Ganti Topik</button>
-          <button class="btn-primary" style="font-size:12px;padding:6px 14px" onclick="startS2Quiz(currentS2Topic)">🔄 Soal Baru</button>
+          <button class="btn-secondary" style="font-size:12px;padding:6px 14px" onclick="rerunQuiz()">🔄 Ulangi</button>
+          <button class="btn-primary" style="font-size:12px;padding:6px 14px" onclick="shuffleQuiz()">🔀 Acak Soal</button>
         </div>
       </div>
+
+      <!-- Mode Toggle -->
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:1rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:.75rem 1rem;flex-wrap:wrap">
+        <span style="font-size:13px;font-weight:600;color:var(--ink);margin-right:4px">Mode:</span>
+        <button id="mode-mc-btn" class="mode-btn mode-btn-active" onclick="setQuizMode('mc')">
+          <span style="font-size:14px">🔘</span> Pilihan Ganda
+        </button>
+        <button id="mode-fill-btn" class="mode-btn" onclick="setQuizMode('fill')">
+          <span style="font-size:14px">✏️</span> Isi Kata
+        </button>
+        <span style="font-size:11px;color:var(--muted);margin-left:auto" id="mode-hint-text">Pilih jawaban yang tepat</span>
+      </div>
+
+      <!-- Score Row -->
       <div class="score-row">
         <div class="score-card"><div class="score-num" id="s2-ai-score">0</div><div class="score-lbl">Benar</div></div>
         <div class="score-card"><div class="score-num" id="s2-ai-answered">0</div><div class="score-lbl">Dijawab</div></div>
+        <div class="score-card"><div class="score-num" id="s2-ai-total">0</div><div class="score-lbl">Total Soal</div></div>
         <div class="score-card"><div class="score-num" id="s2-ai-pct">0%</div><div class="score-lbl">Nilai</div></div>
       </div>
+
       <div id="s2-ai-quiz-area"></div>
+
+      <!-- Result -->
       <div id="s2-ai-result" style="display:none;text-align:center;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;margin-top:1rem">
         <div style="font-family:'Playfair Display',serif;font-size:56px;font-weight:900;color:var(--gold)" id="s2-ai-final-score">0</div>
-        <div style="font-size:14px;color:var(--muted);margin:.5rem 0 1rem" id="s2-ai-final-label">dari 10 soal benar</div>
+        <div style="font-size:14px;color:var(--muted);margin:.5rem 0 1rem" id="s2-ai-final-label">dari 0 soal benar</div>
         <div style="font-size:15px;margin-bottom:1.5rem" id="s2-ai-final-msg"></div>
-        <button class="btn-primary" onclick="startS2Quiz(currentS2Topic)">🔄 Coba 10 Soal Baru</button>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <button class="btn-secondary" onclick="document.getElementById('s2-ai-quiz-wrap').style.display='none'">← Ganti Topik</button>
+          <button class="btn-secondary" onclick="rerunQuiz()">🔄 Ulangi Soal Sama</button>
+          <button class="btn-primary" onclick="shuffleQuiz()">🔀 Acak & Ulangi</button>
+        </div>
       </div>
     </div>
 
@@ -1860,7 +1934,52 @@ function launchQuizFromFile(topic, fileId) {
 
 // ---- QUIZ LAUNCH ----
 let currentS2Topic = '';
+let currentBank = [];
+let currentFileLabel = '';
+let currentQuestions = [];
+let quizMode = 'mc'; // 'mc' | 'fill'
 let s2State = { score:0, answered:0, total:10 };
+
+function setQuizMode(mode) {
+  quizMode = mode;
+  document.getElementById('mode-mc-btn').classList.toggle('mode-btn-active', mode === 'mc');
+  document.getElementById('mode-fill-btn').classList.toggle('mode-btn-active', mode === 'fill');
+  document.getElementById('mode-hint-text').textContent =
+    mode === 'mc' ? 'Pilih jawaban yang tepat' : 'Ketik kata yang hilang, lalu tekan Enter';
+  // Re-render with same questions but new mode
+  if(currentQuestions.length) {
+    resetScoreUI();
+    renderS2Quiz(currentQuestions);
+  }
+}
+
+function rerunQuiz() {
+  // Soal sama, urutan sama, reset jawaban
+  if(!currentQuestions.length) return;
+  resetScoreUI();
+  renderS2Quiz(currentQuestions);
+  document.getElementById('s2-ai-quiz-wrap').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function shuffleQuiz() {
+  // Acak ulang urutan soal + reset semua jawaban
+  if(!currentQuestions.length) return;
+  currentQuestions = [...currentQuestions].sort(() => Math.random() - 0.5);
+  resetScoreUI();
+  renderS2Quiz(currentQuestions);
+  document.getElementById('s2-ai-quiz-wrap').scrollIntoView({ behavior:'smooth', block:'start' });
+  showToast('🔀 Urutan soal diacak ulang!');
+}
+
+function resetScoreUI() {
+  s2State = { score:0, answered:0, total: currentQuestions.length };
+  document.getElementById('s2-ai-score').textContent = '0';
+  document.getElementById('s2-ai-answered').textContent = '0';
+  document.getElementById('s2-ai-total').textContent = currentQuestions.length;
+  document.getElementById('s2-ai-pct').textContent = '0%';
+  document.getElementById('s2-ai-result').style.display = 'none';
+  document.getElementById('s2-ai-quiz-area').innerHTML = '';
+}
 
 function startS2Quiz(topic) {
   const files = getFiles(topic);
@@ -1868,7 +1987,6 @@ function startS2Quiz(topic) {
     showToast('⚠️ Import file JSON untuk topik ini dulu!', true);
     return;
   }
-  // If only 1 file, launch directly. If >1, show picker.
   if(files.length === 1) {
     launchQuizFromFile(topic, files[0].id);
   } else {
@@ -1878,70 +1996,269 @@ function startS2Quiz(topic) {
 
 function runQuiz(topic, bank, fileLabel) {
   currentS2Topic = topic;
-  s2State = { score:0, answered:0, total:10 };
+  currentBank = bank;
+  currentFileLabel = fileLabel;
 
   document.getElementById('s2-active-topic-label').textContent = topicLabels[topic];
-  document.getElementById('s2-active-file-label').innerHTML = fileLabel + ' &bull; 10 soal acak';
-  document.getElementById('s2-ai-score').textContent = '0';
-  document.getElementById('s2-ai-answered').textContent = '0';
-  document.getElementById('s2-ai-pct').textContent = '0%';
-  document.getElementById('s2-ai-result').style.display = 'none';
-  document.getElementById('s2-ai-quiz-area').innerHTML = '';
+  document.getElementById('s2-active-file-label').innerHTML = fileLabel;
   document.getElementById('s2-ai-quiz-wrap').style.display = 'block';
-
   document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active-topic'));
   const tbtn = document.getElementById('tbtn-' + topic);
   if(tbtn) tbtn.classList.add('active-topic');
 
+  // Tampilkan SEMUA soal dari bank, diacak urutannya
   const shuffled = [...bank].sort(() => Math.random() - 0.5);
-  const selected = shuffled.slice(0, Math.min(10, shuffled.length));
-  s2State.total = selected.length;
-  renderS2Quiz(selected);
+  currentQuestions = shuffled;
+  resetScoreUI();
+  renderS2Quiz(currentQuestions);
+  setTimeout(() => document.getElementById('s2-ai-quiz-wrap').scrollIntoView({ behavior:'smooth', block:'start' }), 100);
 }
 
+// ============ RENDER — dispatches to mc or fill mode ============
 function renderS2Quiz(questions) {
   const area = document.getElementById('s2-ai-quiz-area');
-  const labelShort = topicNames[currentS2Topic];
   area.innerHTML = '';
+  s2State.total = questions.length;
   questions.forEach((q, i) => {
-    const div = document.createElement('div');
-    div.className = 'q-card'; div.id = 's2q-' + i;
-    div.innerHTML = `
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:.75rem">
-        <span style="background:var(--teal-light);color:var(--teal);font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px;letter-spacing:1px">${labelShort}</span>
-        <span style="font-size:11px;color:var(--muted)">Soal ${i+1} dari ${questions.length}</span>
-      </div>
-      <div class="q-text">${q.q}</div>
-      <div class="q-opts">${q.opts.map((o,oi) => `<button class="q-opt" onclick="pickS2(${i},${oi},${q.ans})">${o}</button>`).join('')}</div>
-      <div class="q-feedback" id="s2fb-${i}"></div>`;
-    area.appendChild(div);
-    div._exp = q.exp || '';
+    if(quizMode === 'fill') {
+      renderFillCard(q, i, area);
+    } else {
+      renderMCCard(q, i, area);
+    }
   });
 }
 
-function pickS2(qi, oi, ans) {
+// ============ MODE 1: MULTIPLE CHOICE ============
+function renderMCCard(q, i, area) {
+  const labelShort = topicNames[currentS2Topic];
+  const div = document.createElement('div');
+  div.className = 'q-card'; div.id = 's2q-' + i;
+  div.innerHTML = `
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:.75rem">
+      <span style="background:var(--teal-light);color:var(--teal);font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px;letter-spacing:1px">${labelShort}</span>
+      <span style="font-size:11px;color:var(--muted)">Soal ${i+1} / ${s2State.total}</span>
+      <span style="margin-left:auto;font-size:10px;background:var(--cream);border:1px solid var(--border);padding:1px 8px;border-radius:20px;color:var(--muted)">Pilihan Ganda</span>
+    </div>
+    <div class="q-text">${q.q}</div>
+    <div class="q-opts">${q.opts.map((o,oi) => `<button class="q-opt" onclick="pickMCCard(${i},${oi},${q.ans})">${o}</button>`).join('')}</div>
+    <div class="q-feedback" id="s2fb-${i}"></div>`;
+  area.appendChild(div);
+  div._exp = q.exp || '';
+}
+
+function pickMCCard(qi, oi, ans) {
   const card = document.getElementById('s2q-' + qi);
   if(card.dataset.done) return;
   card.dataset.done = '1';
-  const exp = card._exp;
   card.querySelectorAll('.q-opt').forEach(b => b.disabled = true);
   card.querySelectorAll('.q-opt')[oi].classList.add(oi === ans ? 'correct' : 'wrong');
   if(oi !== ans) card.querySelectorAll('.q-opt')[ans].classList.add('reveal');
   const fb = document.getElementById('s2fb-' + qi);
   fb.className = 'q-feedback show ' + (oi === ans ? 'ok' : 'no');
-  fb.textContent = (oi === ans ? '✓ Benar! ' : '✗ Salah. ') + exp;
+  fb.textContent = (oi === ans ? '✓ Benar! ' : '✗ Salah. ') + (card._exp || '');
   if(oi === ans) s2State.score++;
+  updateS2Score();
+}
+
+// ============ MODE 2: FILL IN THE BLANK ============
+// Generates blanks from the question sentence.
+// Tries to blank the answer word(s), or if question has ___ uses those.
+// Supports 1 to N blanks per question.
+
+function makeFillData(q) {
+  // If opts exist, derive answer text from opts[ans]
+  const answerText = q.opts ? q.opts[q.ans] : (q.answer || '');
+
+  // Check if question text already has ___ blank markers
+  if(q.q.includes('___')) {
+    // Count blanks, map each to a portion of the answer
+    const parts = q.q.split('___');
+    // If answer is one word/phrase, all blanks get it (e.g., same fill)
+    // If answer has spaces, split per blank
+    const ansWords = answerText.trim().split(/\s+/);
+    const blanks = parts.length - 1;
+    const blankAnswers = [];
+    if(ansWords.length >= blanks) {
+      // distribute words across blanks
+      const chunkSize = Math.ceil(ansWords.length / blanks);
+      for(let b = 0; b < blanks; b++) {
+        blankAnswers.push(ansWords.slice(b * chunkSize, (b+1)*chunkSize).join(' '));
+      }
+    } else {
+      for(let b = 0; b < blanks; b++) blankAnswers.push(answerText);
+    }
+    return { parts, blankAnswers };
+  }
+
+  // Otherwise, find the answer word(s) inside the sentence and blank them
+  // Escape regex special chars
+  const esc = answerText.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const regex = new RegExp('\\b(' + esc + ')\\b', 'i');
+  if(regex.test(q.q)) {
+    const parts = q.q.split(regex);
+    // parts = [before, matched, after]  (3 elements when 1 match)
+    // Filter: keep only the split result properly
+    const splitResult = q.q.replace(regex, '___').split('___');
+    return { parts: splitResult, blankAnswers: [answerText] };
+  }
+
+  // Fallback: blank the last word of the sentence
+  const words = q.q.replace(/[?.!]$/, '').split(' ');
+  const lastWord = words.pop();
+  return {
+    parts: [words.join(' ') + ' ', '.'],
+    blankAnswers: [lastWord]
+  };
+}
+
+function renderFillCard(q, i, area) {
+  const labelShort = topicNames[currentS2Topic];
+  const fill = makeFillData(q);
+  const { parts, blankAnswers } = fill;
+
+  const div = document.createElement('div');
+  div.className = 'q-card'; div.id = 's2q-' + i;
+  div._exp = q.exp || '';
+  div._blankAnswers = blankAnswers;
+  div._blanksTotal = blankAnswers.length;
+  div._blanksChecked = 0;
+  div._blanksCorrect = 0;
+
+  // Build sentence HTML with inputs
+  let sentenceHtml = '<div class="fill-sentence">';
+  parts.forEach((part, pi) => {
+    // Each text part — split into words to wrap nicely
+    if(part.trim()) {
+      part.split(' ').forEach(w => {
+        if(w) sentenceHtml += `<span class="fill-word">${w}</span>`;
+      });
+    }
+    if(pi < blankAnswers.length) {
+      const ansLen = blankAnswers[pi].length;
+      const inpWidth = Math.max(70, ansLen * 14 + 24);
+      sentenceHtml += `<input
+        class="fill-blank"
+        id="s2fill-${i}-${pi}"
+        data-qi="${i}"
+        data-bi="${pi}"
+        data-ans="${blankAnswers[pi].toLowerCase()}"
+        placeholder="${'_ '.repeat(Math.min(ansLen,6)).trim()}"
+        autocomplete="off" spellcheck="false"
+        style="min-width:${inpWidth}px"
+        onkeydown="if(event.key==='Enter'){event.preventDefault();checkFillCard(${i})}"
+      >`;
+    }
+  });
+  sentenceHtml += '</div>';
+
+  // Hint text
+  const hints = blankAnswers.map(a => {
+    const words = a.split(' ');
+    return words.map(w => w[0].toUpperCase() + '_ '.repeat(w.length - 1).trim()).join(' ');
+  });
+
+  div.innerHTML = `
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:.75rem">
+      <span style="background:var(--gold-light);color:var(--gold);font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px;letter-spacing:1px">${labelShort}</span>
+      <span style="font-size:11px;color:var(--muted)">Soal ${i+1} / ${s2State.total}</span>
+      <span style="margin-left:auto;font-size:10px;background:var(--cream);border:1px solid var(--border);padding:1px 8px;border-radius:20px;color:var(--muted)">✏️ Isi Kata</span>
+    </div>
+    <p class="fill-hint">Lengkapi kalimat dengan kata yang tepat:</p>
+    ${sentenceHtml}
+    <div class="fill-actions">
+      <button class="check-word-btn" id="s2fill-check-${i}" onclick="checkFillCard(${i})">Cek Jawaban ✓</button>
+      <button class="hint-word-btn" onclick="showFillHint(${i})">Petunjuk 💡</button>
+    </div>
+    <div class="q-feedback" id="s2fb-${i}"></div>`;
+  area.appendChild(div);
+}
+
+function checkFillCard(qi) {
+  const card = document.getElementById('s2q-' + qi);
+  if(card.dataset.done) return;
+
+  const blankAnswers = card._blankAnswers;
+  let allCorrect = true;
+  let anyFilled = false;
+
+  blankAnswers.forEach((ans, bi) => {
+    const inp = document.getElementById(`s2fill-${qi}-${bi}`);
+    if(!inp || inp.disabled) return;
+    const val = inp.value.trim().toLowerCase();
+    if(val === '') return; // skip empty
+    anyFilled = true;
+    const correct = val === ans.toLowerCase();
+    inp.disabled = true;
+    inp.classList.add(correct ? 'correct' : 'wrong');
+    if(!correct) allCorrect = false;
+  });
+
+  if(!anyFilled) {
+    showToast('Isi dulu jawabannya!', true);
+    return;
+  }
+
+  // Check if all blanks are filled
+  const allFilled = blankAnswers.every((ans, bi) => {
+    const inp = document.getElementById(`s2fill-${qi}-${bi}`);
+    return inp && inp.disabled;
+  });
+
+  if(!allFilled) {
+    // Some blanks still empty — disable remaining too as wrong
+    blankAnswers.forEach((ans, bi) => {
+      const inp = document.getElementById(`s2fill-${qi}-${bi}`);
+      if(inp && !inp.disabled) {
+        inp.disabled = true;
+        inp.classList.add('wrong');
+        allCorrect = false;
+      }
+    });
+  }
+
+  card.dataset.done = '1';
+  document.getElementById(`s2fill-check-${qi}`).disabled = true;
+
+  const fb = document.getElementById('s2fb-' + qi);
+  fb.className = 'q-feedback show ' + (allCorrect ? 'ok' : 'no');
+
+  const correctAnswers = blankAnswers.join(', ');
+  fb.innerHTML = allCorrect
+    ? `✓ Benar! ${card._exp}`
+    : `✗ Jawaban yang tepat: <strong>${correctAnswers}</strong>${card._exp ? '. ' + card._exp : ''}`;
+
+  if(allCorrect) s2State.score++;
+  updateS2Score();
+}
+
+function showFillHint(qi) {
+  const card = document.getElementById('s2q-' + qi);
+  if(card.dataset.done) return;
+  const hints = card._blankAnswers.map(a =>
+    a.split(' ').map(w => w[0].toUpperCase() + '_'.repeat(w.length - 1)).join(' ')
+  );
+  const fb = document.getElementById('s2fb-' + qi);
+  fb.className = 'q-feedback show';
+  fb.style.background = 'var(--gold-light)';
+  fb.style.color = 'var(--gold)';
+  fb.textContent = '💡 Petunjuk: ' + hints.join(' | ') + ` (${card._blankAnswers.map(a=>a.length+' huruf').join(', ')})`;
+}
+
+// ============ SHARED SCORE ============
+function updateS2Score() {
   s2State.answered++;
   document.getElementById('s2-ai-score').textContent = s2State.score;
   document.getElementById('s2-ai-answered').textContent = s2State.answered;
-  document.getElementById('s2-ai-pct').textContent = Math.round((s2State.score / s2State.answered) * 100) + '%';
-  if(s2State.answered === s2State.total) setTimeout(showS2Result, 700);
+  document.getElementById('s2-ai-pct').textContent =
+    Math.round((s2State.score / s2State.answered) * 100) + '%';
+  if(s2State.answered === s2State.total) setTimeout(showS2Result, 800);
 }
 
 function showS2Result() {
-  const pct = Math.round((s2State.score / s2State.total) * 100);
+  const total = s2State.total;
+  const pct = Math.round((s2State.score / total) * 100);
   document.getElementById('s2-ai-final-score').textContent = s2State.score;
-  document.getElementById('s2-ai-final-label').textContent = 'dari ' + s2State.total + ' soal benar';
+  document.getElementById('s2-ai-final-label').textContent = 'dari ' + total + ' soal benar';
   let msg = '';
   if(pct >= 90) msg = '🎉 Luar biasa! Kamu sangat menguasai topik ini!';
   else if(pct >= 70) msg = '👍 Bagus! Coba lagi untuk nilai lebih tinggi.';
@@ -1949,6 +2266,7 @@ function showS2Result() {
   else msg = '💪 Jangan menyerah! Baca ulang materi dan coba lagi.';
   document.getElementById('s2-ai-final-msg').textContent = msg;
   document.getElementById('s2-ai-result').style.display = 'block';
+  document.getElementById('s2-ai-result').scrollIntoView({ behavior:'smooth', block:'center' });
 }
 
 // Toast
