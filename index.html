@@ -1447,7 +1447,8 @@ main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn-secondary" style="font-size:12px;padding:6px 14px" onclick="document.getElementById('s2-ai-quiz-wrap').style.display='none'">← Ganti Topik</button>
           <button class="btn-secondary" style="font-size:12px;padding:6px 14px" onclick="rerunQuiz()">🔄 Ulangi</button>
-          <button class="btn-primary" style="font-size:12px;padding:6px 14px" onclick="shuffleQuiz()">🔀 Acak Soal</button>
+          <button class="btn-secondary" style="font-size:12px;padding:6px 14px" onclick="shuffleQuiz()">🔀 Acak Soal</button>
+          <button class="btn-primary" style="font-size:12px;padding:6px 14px" onclick="exportPDF()">📄 Export PDF</button>
         </div>
       </div>
 
@@ -2290,6 +2291,382 @@ function initBankUIAll() {
 }
 initBankUIAll();
 // ===================== END MULTI-FILE IMPORT =====================
+
+// ===================== EXPORT PDF =====================
+function exportPDF() {
+  if(!currentQuestions.length) {
+    showToast('Belum ada soal untuk diekspor!', true);
+    return;
+  }
+
+  const topic = topicLabels[currentS2Topic] || 'Latihan Bahasa Inggris';
+  const date = new Date().toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
+  const questions = currentQuestions;
+  const total = questions.length;
+
+  // Build answer key — grid 5 kolom
+  const answerKey = questions.map((q, i) => {
+    const answerText = q.opts ? q.opts[q.ans] : (q.answer || '-');
+    return `    <div class="ak-item"><span class="ak-num">${String(i+1).padStart(2,'0')}.</span><div class="ak-divider"></div><span class="ak-ans">${answerText}</span></div>`;
+  }).join('\n');
+
+  // Build question cards — 2 kolom A4
+  const questionsHtml = questions.map((q, i) => {
+    const isLastOdd = (i === total - 1) && (total % 2 !== 0);
+    const cardClass = isLastOdd ? 'pdf-q-card full-width' : 'pdf-q-card';
+    const opts = q.opts
+      ? q.opts.map((o, oi) => {
+          const letter = ['A','B','C','D'][oi];
+          return `<div class="pdf-opt"><span class="pdf-opt-letter">${letter}.</span><span>${o}</span></div>`;
+        }).join('')
+      : `<div class="pdf-blank-area"></div><div class="pdf-blank-area"></div>`;
+
+    return `    <div class="${cardClass}">
+      <div class="pdf-q-header">
+        <span class="pdf-q-num">Soal ${i+1}</span>
+        <span class="pdf-q-badge">${q.opts ? 'Pilihan Ganda' : 'Isian'}</span>
+      </div>
+      <div class="pdf-q-text">${q.q}</div>
+      <div class="pdf-opts">${opts}</div>
+      <div class="pdf-q-foot">( &nbsp; )</div>
+    </div>`; 
+  }).join('\n');
+
+  const html = `<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Soal ${topic.replace(/[⏰🔄⏪❓📍✨]/g,'').trim()}</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+  /* ===== A4 PAGE SETUP ===== */
+  @page {
+    size: A4 portrait;
+    margin: 18mm 16mm 18mm 16mm;
+  }
+  @page :first { margin-top: 16mm; }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 210mm;
+    font-family: 'DM Sans', Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.5;
+    color: #1a1714;
+    background: #fff;
+  }
+
+  /* ===== SCREEN PREVIEW ===== */
+  @media screen {
+    body {
+      background: #e8e8e8;
+      padding: 20px;
+    }
+    .a4-page {
+      width: 210mm;
+      min-height: 297mm;
+      background: #fff;
+      margin: 0 auto 20px;
+      padding: 16mm;
+      box-shadow: 0 4px 24px rgba(0,0,0,.18);
+    }
+  }
+
+  /* ===== PRINT ===== */
+  @media print {
+    html, body { width: 210mm; background: #fff; }
+    body { padding: 0; }
+    .a4-page { box-shadow: none; padding: 0; margin: 0; }
+    .page-break { page-break-before: always; break-before: page; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .pdf-q-card { break-inside: avoid; page-break-inside: avoid; }
+    .ak-item { break-inside: avoid; }
+  }
+
+  /* ===== HEADER ===== */
+  .pdf-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 2px solid #1a1714;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+  }
+  .pdf-header h1 {
+    font-size: 14pt;
+    font-weight: 700;
+    letter-spacing: -.3px;
+    line-height: 1.2;
+  }
+  .pdf-header .sub { font-size: 8pt; color: #888; margin-top: 2px; }
+  .pdf-header-right {
+    text-align: right;
+    font-size: 8.5pt;
+    color: #666;
+    line-height: 1.7;
+  }
+
+  /* ===== IDENTITAS SISWA ===== */
+  .pdf-identity {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 0 16px;
+    margin-bottom: 8px;
+    padding: 7px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #fafafa;
+  }
+  .id-field { display: flex; align-items: center; gap: 6px; font-size: 8.5pt; }
+  .id-field label { font-weight: 600; white-space: nowrap; }
+  .id-field .id-line { flex: 1; border-bottom: 1px solid #999; }
+
+  /* ===== PETUNJUK ===== */
+  .pdf-info-bar {
+    background: #f5f3ee;
+    border-left: 3px solid #c9973a;
+    padding: 5px 10px;
+    font-size: 8pt;
+    color: #555;
+    margin-bottom: 12px;
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  /* ===== 2 KOLOM SOAL ===== */
+  .pdf-questions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 14px;
+  }
+  .pdf-q-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 8px 10px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .pdf-q-card.full-width { grid-column: 1 / -1; }
+
+  .pdf-q-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  .pdf-q-num {
+    font-size: 7.5pt;
+    font-weight: 700;
+    color: #c9973a;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+  }
+  .pdf-q-badge {
+    font-size: 7pt;
+    background: #e0f0f0;
+    color: #2a6b6b;
+    padding: 1px 6px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  .pdf-q-text {
+    font-size: 9.5pt;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 7px;
+    color: #1a1714;
+  }
+
+  /* Pilihan ganda — 2 kolom dalam kartu */
+  .pdf-opts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px 8px;
+  }
+  .pdf-opt {
+    font-size: 8.5pt;
+    color: #333;
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    line-height: 1.4;
+    padding: 2px 0;
+  }
+  .pdf-opt-letter {
+    font-weight: 700;
+    color: #2a6b6b;
+    flex-shrink: 0;
+    min-width: 12px;
+  }
+
+  /* Soal isian */
+  .pdf-blank-area {
+    border-bottom: 1px solid #bbb;
+    height: 18px;
+    margin: 6px 0;
+  }
+
+  /* Skor kecil di pojok */
+  .pdf-q-foot {
+    margin-top: 6px;
+    padding-top: 4px;
+    border-top: 1px dashed #e5e5e5;
+    font-size: 7.5pt;
+    color: #bbb;
+    text-align: right;
+  }
+
+  /* ===== DIVIDER ANTAR HALAMAN ===== */
+  .page-break {
+    page-break-before: always;
+    break-before: page;
+  }
+
+  /* ===== KUNCI JAWABAN ===== */
+  .ak-page { padding-top: 0; }
+  .ak-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 2px solid #1a1714;
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+  }
+  .ak-header h2 { font-size: 13pt; font-weight: 700; }
+  .ak-header .ak-sub { font-size: 8pt; color: #888; margin-top: 2px; }
+  .ak-badge {
+    font-size: 8.5pt;
+    background: #f5f3ee;
+    border: 1px solid #e0dbd0;
+    border-radius: 4px;
+    padding: 4px 12px;
+    color: #666;
+  }
+
+  .ak-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 7px 10px;
+    margin-bottom: 20px;
+  }
+  .ak-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid #e0dbd0;
+    border-radius: 5px;
+    padding: 6px 10px;
+    background: #faf9f6;
+    break-inside: avoid;
+  }
+  .ak-num {
+    font-size: 8pt;
+    font-weight: 700;
+    color: #2a6b6b;
+    min-width: 22px;
+    flex-shrink: 0;
+  }
+  .ak-ans {
+    font-size: 9pt;
+    font-weight: 600;
+    color: #1a1714;
+    line-height: 1.3;
+  }
+  .ak-divider {
+    width: 1px;
+    height: 14px;
+    background: #ddd;
+    flex-shrink: 0;
+  }
+
+  .ak-footer {
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+    font-size: 8pt;
+    color: #aaa;
+    line-height: 1.7;
+  }
+  .ak-footer strong { color: #666; }
+</style>
+</head>
+<body>
+
+<!-- ========== HALAMAN SOAL ========== -->
+<div class="a4-page">
+
+  <div class="pdf-header">
+    <div>
+      <h1>Lembar Soal Bahasa Inggris</h1>
+      <div class="sub">${topic.replace(/[⏰🔄⏪❓📍✨]/g,'').trim()} &nbsp;•&nbsp; Elementary A1–A2 &nbsp;•&nbsp; LearnEnglish</div>
+    </div>
+    <div class="pdf-header-right">
+      Tanggal: ${date}<br>
+      Jumlah soal: <strong>${total}</strong>
+    </div>
+  </div>
+
+  <div class="pdf-identity">
+    <div class="id-field"><label>Nama:</label><div class="id-line">&nbsp;</div></div>
+    <div class="id-field"><label>Kelas:</label><div class="id-line">&nbsp;</div></div>
+    <div class="id-field"><label>Nilai:</label><div class="id-line">&nbsp;</div></div>
+  </div>
+
+  <div class="pdf-info-bar">
+    <span><strong>Petunjuk:</strong> Pilih jawaban yang paling tepat (A/B/C/D) atau isi titik-titik dengan kata yang benar.</span>
+    <span style="white-space:nowrap"><strong>Waktu:</strong> ___ menit</span>
+  </div>
+
+  <div class="pdf-questions">
+${questionsHtml}
+  </div>
+
+</div><!-- end a4-page soal -->
+
+<!-- ========== HALAMAN KUNCI JAWABAN ========== -->
+<div class="page-break"></div>
+<div class="a4-page ak-page">
+
+  <div class="ak-header">
+    <div>
+      <h2>Kunci Jawaban</h2>
+      <div class="ak-sub">Dokumen ini hanya untuk pemeriksa — tidak untuk dibagikan kepada siswa</div>
+    </div>
+    <div class="ak-badge">${topic.replace(/[⏰🔄⏪❓📍✨]/g,'').trim()} &nbsp;•&nbsp; ${total} soal</div>
+  </div>
+
+  <div class="ak-grid">
+${answerKey}
+  </div>
+
+  <div class="ak-footer">
+    <strong>Catatan:</strong> Kunci jawaban ini digenerate otomatis dari bank soal LearnEnglish.
+    Harap periksa kembali kebenaran setiap jawaban sebelum digunakan untuk penilaian.
+    &nbsp;|&nbsp; Dicetak: ${date}
+  </div>
+
+</div><!-- end a4-page kunci -->
+
+</body>
+</html>`;
+
+  // Buat file HTML dan trigger download, lalu user buka & print
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `soal-${currentS2Topic}-${Date.now()}.html`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+
+  showToast('📄 File didownload! Buka lalu Ctrl+P untuk print/save PDF.');
+}
+// ===================== END EXPORT PDF =====================
 </script>
 </body>
 </html>
