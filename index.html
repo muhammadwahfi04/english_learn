@@ -553,6 +553,24 @@ main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 .topic-btn:hover { border-color: var(--gold); background: var(--gold-light); transform: translateY(-2px); }
 .topic-btn.active-topic { border-color: var(--teal); background: var(--teal-light); color: var(--teal); }
 
+/* Multi-select topic */
+.topic-selectable { position: relative; }
+.topic-selectable.selected {
+  border-color: var(--teal);
+  background: var(--teal-light);
+  color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(42,107,107,.15);
+}
+.topic-selectable.selected::after {
+  content: '✓';
+  position: absolute; top: 6px; right: 8px;
+  font-size: 12px; font-weight: 700;
+  color: var(--teal);
+}
+.topic-selectable.no-bank {
+  opacity: .4; pointer-events: none;
+}
+
 .loading-dots { display: flex; gap: 8px; justify-content: center; }
 .loading-dots span {
   width: 10px; height: 10px; border-radius: 50%;
@@ -1494,14 +1512,33 @@ main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
     <!-- TOPIC PICKER -->
     <div id="s2-topic-picker" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.25rem">
-      <p style="font-size:14px;font-weight:600;margin-bottom:.75rem;color:var(--ink)">Pilih Topik Latihan</p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px">
-        <button class="topic-btn" id="tbtn-simple_present" onclick="startS2Quiz('simple_present')">⏰ Simple Present Tense</button>
-        <button class="topic-btn" id="tbtn-present_continuous" onclick="startS2Quiz('present_continuous')">🔄 Present Continuous</button>
-        <button class="topic-btn" id="tbtn-simple_past" onclick="startS2Quiz('simple_past')">⏪ Simple Past Tense</button>
-        <button class="topic-btn" id="tbtn-question_words" onclick="startS2Quiz('question_words')">❓ Question Words</button>
-        <button class="topic-btn" id="tbtn-prepositions" onclick="startS2Quiz('prepositions')">📍 Prepositions</button>
-        <button class="topic-btn" id="tbtn-adjectives" onclick="startS2Quiz('adjectives')">✨ Adjectives</button>
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:.875rem">
+        <div>
+          <p style="font-size:14px;font-weight:600;color:var(--ink)">Pilih Topik Latihan</p>
+          <p style="font-size:12px;color:var(--muted);margin-top:2px">Pilih satu atau lebih topik lalu klik Mulai</p>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <button class="btn-secondary" style="font-size:12px;padding:6px 14px" onclick="clearTopicSelection()">Batal Pilih</button>
+          <button id="btn-start-quiz" class="btn-primary" style="font-size:13px;padding:8px 20px;display:none" onclick="startSelectedTopics()">
+            <span id="btn-start-label">Mulai</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Selected info bar -->
+      <div id="topic-selection-bar" style="display:none;background:var(--teal-light);border:1.5px solid var(--teal);border-radius:var(--radius);padding:.625rem 1rem;margin-bottom:.875rem;font-size:13px;color:var(--teal);display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span style="font-weight:600">Dipilih:</span>
+        <span id="topic-selection-names" style="flex:1"></span>
+        <span id="topic-selection-count" style="background:var(--teal);color:white;border-radius:20px;padding:1px 10px;font-size:11px;font-weight:700"></span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px" id="topic-btn-grid">
+        <button class="topic-btn topic-selectable" id="tbtn-simple_present"     data-topic="simple_present"     onclick="toggleTopicSelect(this)">⏰ Simple Present Tense</button>
+        <button class="topic-btn topic-selectable" id="tbtn-present_continuous" data-topic="present_continuous" onclick="toggleTopicSelect(this)">🔄 Present Continuous</button>
+        <button class="topic-btn topic-selectable" id="tbtn-simple_past"        data-topic="simple_past"        onclick="toggleTopicSelect(this)">⏪ Simple Past Tense</button>
+        <button class="topic-btn topic-selectable" id="tbtn-question_words"     data-topic="question_words"     onclick="toggleTopicSelect(this)">❓ Question Words</button>
+        <button class="topic-btn topic-selectable" id="tbtn-prepositions"       data-topic="prepositions"       onclick="toggleTopicSelect(this)">📍 Prepositions</button>
+        <button class="topic-btn topic-selectable" id="tbtn-adjectives"         data-topic="adjectives"         onclick="toggleTopicSelect(this)">✨ Adjectives</button>
       </div>
     </div>
 
@@ -1527,7 +1564,7 @@ main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
           <p style="font-size:12px;color:var(--muted);margin-top:2px" id="s2-active-file-label"></p>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn-secondary" style="font-size:12px;padding:6px 14px" onclick="document.getElementById('s2-ai-quiz-wrap').style.display='none'">← Ganti Topik</button>
+          <button class="btn-secondary" style="font-size:12px;padding:6px 14px" onclick="document.getElementById('s2-ai-quiz-wrap').style.display='none';clearTopicSelection()">← Ganti Topik</button>
           <button class="btn-secondary" style="font-size:12px;padding:6px 14px" onclick="rerunQuiz()">🔄 Ulangi</button>
           <button class="btn-secondary" style="font-size:12px;padding:6px 14px" onclick="shuffleQuiz()">🔀 Acak Soal</button>
           <button class="btn-primary" style="font-size:12px;padding:6px 14px" onclick="exportPDF()">📄 Export PDF</button>
@@ -1562,7 +1599,7 @@ main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
         <div style="font-size:14px;color:var(--muted);margin:.5rem 0 1rem" id="s2-ai-final-label">dari 0 soal benar</div>
         <div style="font-size:15px;margin-bottom:1.5rem" id="s2-ai-final-msg"></div>
         <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-          <button class="btn-secondary" onclick="document.getElementById('s2-ai-quiz-wrap').style.display='none'">← Ganti Topik</button>
+          <button class="btn-secondary" onclick="document.getElementById('s2-ai-quiz-wrap').style.display='none';clearTopicSelection()">← Ganti Topik</button>
           <button class="btn-secondary" onclick="rerunQuiz()">🔄 Ulangi Soal Sama</button>
           <button class="btn-primary" onclick="shuffleQuiz()">🔀 Acak & Ulangi</button>
         </div>
@@ -2003,7 +2040,10 @@ function refreshBankUI(topic) {
 
   // Update topic button state
   const tbtn = document.getElementById('tbtn-' + topic);
-  if(tbtn) tbtn.classList.toggle('topic-btn-disabled', !hasFiles);
+  if(tbtn) {
+    tbtn.classList.toggle('topic-btn-disabled', false); // remove old class
+    tbtn.classList.toggle('no-bank', !hasFiles);
+  }
 }
 
 function initBankUI() {
@@ -2116,7 +2156,149 @@ function resetScoreUI() {
   document.getElementById('s2-ai-quiz-area').innerHTML = '';
 }
 
+// ---- MULTI-SELECT TOPIC ----
+// selectedTopics: Map<topic, {fileId, fileName, questions}>
+let selectedTopics = new Map();
+
+function toggleTopicSelect(btn) {
+  const topic = btn.dataset.topic;
+  const files = getFiles(topic);
+
+  if(!files.length) {
+    showToast('⚠️ Import file JSON untuk topik ini dulu!', true);
+    return;
+  }
+
+  // Jika sudah dipilih → deselect
+  if(selectedTopics.has(topic)) {
+    selectedTopics.delete(topic);
+    btn.classList.remove('selected');
+    updateTopicSelectionUI();
+    return;
+  }
+
+  // Kalau hanya 1 file → langsung tambahkan
+  if(files.length === 1) {
+    const f = files[0];
+    selectedTopics.set(topic, { fileId: f.id, fileName: f.name, questions: f.questions });
+    btn.classList.add('selected');
+    updateTopicSelectionUI();
+    showToast(`✓ ${topicNames[topic]} ditambahkan!`);
+    return;
+  }
+
+  // Kalau lebih dari 1 file → tampilkan popup pilih file
+  showFilePickerForMerge(topic);
+}
+
+function showFilePickerForMerge(topic) {
+  const files = getFiles(topic);
+  const overlay = document.getElementById('file-picker-overlay');
+  const titleEl = document.getElementById('fp-title');
+  const subEl   = document.getElementById('fp-sub');
+  const listEl  = document.getElementById('fp-list');
+
+  titleEl.textContent = topicIcons[topic] + ' ' + topicNames[topic];
+  subEl.textContent   = 'Pilih satu file soal untuk ditambahkan ke gabungan:';
+
+  listEl.innerHTML = files.map(f => `
+    <button onclick="addTopicFileToMerge('${topic}', ${f.id})"
+      style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:.875rem 1rem;border-radius:var(--radius);border:1.5px solid var(--border);background:var(--cream);cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;font-size:14px;color:var(--ink);transition:all .15s"
+      onmouseover="this.style.borderColor='var(--gold)';this.style.background='var(--gold-light)'"
+      onmouseout="this.style.borderColor='var(--border)';this.style.background='var(--cream)'">
+      <span style="font-weight:500">${f.name}</span>
+      <span style="font-size:12px;color:var(--muted);background:var(--white);padding:2px 10px;border-radius:20px;border:1px solid var(--border)">${f.questions.length} soal</span>
+    </button>`).join('');
+
+  overlay.style.display = 'flex';
+}
+
+function addTopicFileToMerge(topic, fileId) {
+  closeFilePicker();
+  const files = getFiles(topic);
+  const f = files.find(f => f.id === fileId);
+  if(!f) return;
+
+  selectedTopics.set(topic, { fileId: f.id, fileName: f.name, questions: f.questions });
+
+  const btn = document.getElementById('tbtn-' + topic);
+  if(btn) btn.classList.add('selected');
+
+  updateTopicSelectionUI();
+  showToast(`✓ ${topicNames[topic]} — "${f.name}" ditambahkan!`);
+}
+
+function updateTopicSelectionUI() {
+  const count    = selectedTopics.size;
+  const bar      = document.getElementById('topic-selection-bar');
+  const startBtn = document.getElementById('btn-start-quiz');
+  const labelEl  = document.getElementById('btn-start-label');
+  const namesEl  = document.getElementById('topic-selection-names');
+  const countEl  = document.getElementById('topic-selection-count');
+
+  if(count === 0) {
+    bar.style.display = 'none';
+    startBtn.style.display = 'none';
+    return;
+  }
+
+  bar.style.display = 'flex';
+  startBtn.style.display = 'inline-flex';
+
+  // Build names with file name if available
+  const names = [...selectedTopics.entries()].map(([t, info]) => {
+    const shortName = topicLabels[t].replace(/[⏰🔄⏪❓📍✨]/g,'').trim();
+    return `${shortName} (${info.fileName})`;
+  }).join(' + ');
+  namesEl.textContent = names;
+
+  const totalQ = [...selectedTopics.values()].reduce((s, info) => s + info.questions.length, 0);
+  countEl.textContent = totalQ + ' soal';
+
+  if(count === 1) {
+    labelEl.textContent = 'Mulai';
+    startBtn.style.background = 'var(--ink)';
+  } else {
+    labelEl.textContent = `🔀 Gabung ${count} Topik & Mulai`;
+    startBtn.style.background = 'var(--teal)';
+  }
+}
+
+function clearTopicSelection() {
+  selectedTopics.clear();
+  document.querySelectorAll('.topic-selectable').forEach(b => b.classList.remove('selected'));
+  updateTopicSelectionUI();
+}
+
+function startSelectedTopics() {
+  if(selectedTopics.size === 0) return;
+
+  const entries = [...selectedTopics.entries()];
+
+  if(entries.length === 1) {
+    const [topic, info] = entries[0];
+    runQuiz(topic, info.questions, `${info.fileName} &bull; ${info.questions.length} soal`);
+    return;
+  }
+
+  // Gabung semua soal dari file yang sudah dipilih per topik
+  const combinedBank = entries.flatMap(([, info]) => info.questions);
+  const titleParts   = entries.map(([t, info]) => {
+    const short = topicLabels[t].replace(/[⏰🔄⏪❓📍✨]/g,'').trim();
+    return `${short} (${info.fileName})`;
+  });
+
+  if(combinedBank.length === 0) {
+    showToast('⚠️ Tidak ada soal!', true);
+    return;
+  }
+
+  const label = `🔀 ${titleParts.join(' + ')} &bull; ${combinedBank.length} soal`;
+  runQuizMerged(combinedBank, label, titleParts.join(' + '));
+}
+
 function startS2Quiz(topic) {
+  // Dipakai oleh file picker lama — langsung jalankan
   const files = getFiles(topic);
   if(!files.length) {
     showToast('⚠️ Import file JSON untuk topik ini dulu!', true);
@@ -2130,18 +2312,36 @@ function startS2Quiz(topic) {
 }
 
 function runQuiz(topic, bank, fileLabel) {
+  clearTopicSelection();
   currentS2Topic = topic;
   currentBank = bank;
   currentFileLabel = fileLabel;
 
-  document.getElementById('s2-active-topic-label').textContent = topicLabels[topic];
+  document.getElementById('s2-active-topic-label').textContent = topicLabels[topic] || topic;
   document.getElementById('s2-active-file-label').innerHTML = fileLabel;
   document.getElementById('s2-ai-quiz-wrap').style.display = 'block';
-  document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active-topic'));
+  document.querySelectorAll('.topic-selectable').forEach(b => b.classList.remove('active-topic'));
   const tbtn = document.getElementById('tbtn-' + topic);
   if(tbtn) tbtn.classList.add('active-topic');
 
-  // Tampilkan SEMUA soal dari bank, diacak urutannya
+  const shuffled = [...bank].sort(() => Math.random() - 0.5);
+  currentQuestions = shuffled;
+  resetScoreUI();
+  renderS2Quiz(currentQuestions);
+  setTimeout(() => document.getElementById('s2-ai-quiz-wrap').scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+}
+
+function runQuizMerged(bank, fileLabel, titleLabel) {
+  clearTopicSelection();
+  currentS2Topic = '__merged__';
+  currentBank = bank;
+  currentFileLabel = fileLabel;
+
+  document.getElementById('s2-active-topic-label').textContent = '🔀 ' + titleLabel;
+  document.getElementById('s2-active-file-label').innerHTML = fileLabel;
+  document.getElementById('s2-ai-quiz-wrap').style.display = 'block';
+  document.querySelectorAll('.topic-selectable').forEach(b => b.classList.remove('active-topic'));
+
   const shuffled = [...bank].sort(() => Math.random() - 0.5);
   currentQuestions = shuffled;
   resetScoreUI();
